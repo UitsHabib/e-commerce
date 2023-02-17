@@ -1,0 +1,10 @@
+{
+  "name": "nodejs-crud",
+  "description": "A simple nodejs CRUD application",
+  "version": "1.0.0",
+  "author": "Mr Sahadat Hossen",
+  "packageManager": "yarn@3.4.1",   
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
