@@ -1,7 +1,13 @@
 
-const { getUsers } = require('./user.controller');
+const { getUsers, getUser, createUser, updateUser, deleteUser } = require('./user.controller');
 
 module.exports = ( app ) => {
     app.route('/users')
-        .get(getUsers);
+        .get(getUsers)
+        .post( createUser );
+    
+    app.route('/user/:email')
+        .get( getUser )
+        .patch( updateUser )
+        .delete( deleteUser );
 }
