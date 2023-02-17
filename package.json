@@ -3,8 +3,13 @@
   "description": "A simple nodejs CRUD application",
   "version": "1.0.0",
   "author": "Mr Sahadat Hossen",
-  "packageManager": "yarn@3.4.1",   
+  "packageManager": "yarn@3.4.1",
   "scripts": {
     "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
   }
 }
