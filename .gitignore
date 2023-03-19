@@ -13,3 +13,5 @@
 .env
 .editorconfig
 .yarn
+
+node_modules

@@ -1,13 +1,23 @@
 
-const { getUsers, getUser, createUser, updateUser, deleteUser } = require('./user.controller');
+const { getUsers, getUser, createUser, updateUser, deleteUser, login } = require('./user.controller');
+const validate = require('../core/middlewares/validate');
+const { createUserSchema, userUpdateSchema } = require('./user.schema');
+const authenticate = require('../core/middlewares/authenticate');
 
 module.exports = ( app ) => {
     app.route('/users')
         .get(getUsers)
-        .post( createUser );
+        .post(validate(createUserSchema), createUser)
+        .patch(authenticate, validate(userUpdateSchema), updateUser);
     
-    app.route('/user/:email')
-        .get( getUser )
-        .patch( updateUser )
-        .delete( deleteUser );
+    app.route('/users/:email')
+        .get(getUser)
+        .delete(authenticate, deleteUser);
+
+    app.post('/users/login', login);
 }
+
+/*
+    feature/mamun-login
+    
+*/

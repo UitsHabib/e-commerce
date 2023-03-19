@@ -1,5 +1,7 @@
-const { object, string } = require('yup');
-const users = [ {"name":"Mr Sahadat", "email":"sahadat@gmail.com"} ]
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const users = [ ]
 
 function getUsers( req, res ) {
     res.send(users);
@@ -14,72 +16,64 @@ function getUser( req, res ) {
 }
 
 function createUser ( req, res ) {
-    const body = req.body;
-    const name = body.name;
-    const email = body.email;
+    const { firstName, lastName, email, password } = req.body;
 
-    const createSchema = object().shape({
-        name: string()
-            .min(2,'Name must be minimum 2 characters long')
-            .max(100,'Name must be maximum 100 characters long')
-            .required('Name field is required!'),
-        email:string()
-            .email('This field should be a valid email address')
-            .required('Email field is required')
-    });
+    const hashedPassword = bcrypt.hashSync(password, 8);
 
-    const promise = createSchema.validate({ name, email }, { abortEarly: false });
+    const user = users.find(user => user.email === email);
 
-    promise
-        .then(function () {  
-            const user = users.find( user => user.email === email );
+    if(user) return res.status(400).send("User already exists!");
 
-            if( user ) return res.status(400).send("User already exists!");
+    const newUser = {
+        firstName, 
+        lastName,
+        email,
+        password: hashedPassword
+    }
 
-            users.push( body );
+    users.push(newUser);
 
-            res.status(201).send(body);
-        })
-        .catch(function (err){
-            const errorMsg = {
-                path: err.inner[0].path,
-                msg: err.inner[0].message
-            }
-            
-            return res.status(400).send(errorMsg);
-        })
+    const modifiedUser = {...newUser};
+    delete modifiedUser.password;
+
+    res.status(201).send(modifiedUser);
 }
 
-function updateUser( req, res ) {  
-    const body = req.body;
+function login(req, res) {
+    const { email, password } = req.body;
 
-    const updateSchema = object().shape({
-        name:string()
-            .required('This field is required!')
-            .min(2, 'This should be minimum two characters!')
-            .max(100, 'This should be minimum two characters!')
+    const user = users.find(user => user.email === email);
+
+    if(!user) return res.status(400).send('Invalid credential');
+
+    const passwordMatched = bcrypt.compareSync(password, user.password);
+
+    if(!passwordMatched) return res.status(400).send('Invalid credential');
+
+    const token = jwt.sign({ email: user.email, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET, { expiresIn: "1h", issuer: user.email });
+
+    const modifiedUser = {...user};
+    delete modifiedUser.password;
+
+    res.cookie("access_token", token, {
+        httpOnly: true
     });
 
-    const promise = updateSchema.validate({ name: body.name }, { abortEarly:false });
+    res.status(200).send(modifiedUser); // jwt => json web token
+}
 
-    promise
-        .then(() => {
-            const user = users.find( user => user.email === req.params.email );
+function updateUser(req, res) {  
+    const { firstName, lastName } = req.body;
+    const email = req.user.email;
+    
+    const user = users.find(user => user.email === email);
 
-            if( !user ) return res.status(404).send("User not found!");
-        
-            user.name = body.name;
-        
-            res.send(user);
-        })
-        .catch((err) => {
-            const errorMsg = {
-                path: err.inner[0].path,
-                msg: err.inner[0].message
-            }
-            
-            return res.status(400).send(errorMsg);
-        });
+    if(!user) return res.status(404).send("User not found!");
+
+    user.firstName = firstName;
+    user.lastName = lastName;
+
+    res.send(user);
 }
 
 function deleteUser( req, res ) {
@@ -92,8 +86,15 @@ function deleteUser( req, res ) {
     res.send(user);
 }
 
+function findUser(email) {
+    const user = users.find(user => user.email === email);
+    return user;
+}
+
+module.exports.login = login;
 module.exports.getUsers = getUsers;
 module.exports.getUser = getUser;
 module.exports.createUser = createUser;
 module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;
+module.exports.findUser = findUser;
