@@ -1,12 +1,12 @@
 # nodejs-crud
 
-branch name convention
+## branch name convention
 
 `
     feature/habib-service-management
 `
 
-commit message convention
+## commit message convention
 
 `
      feature/habib-your-message
