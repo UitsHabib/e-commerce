@@ -1,0 +1,1 @@
+yarn add express jsonwebtoken passport passport-jwt cookie-parser  cors bcrypt mysql2 dotenv sequelize yup glob lodash
