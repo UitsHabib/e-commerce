@@ -10,6 +10,8 @@ function init() {
         .query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`)
         .then(() => {
             require("./src/modules/user/user.model");
+            require("./src/modules/permission/permission.model");
+            require("./src/modules/service/permission-service.model");
             sequelize
                 .sync()
                 .then(() => {

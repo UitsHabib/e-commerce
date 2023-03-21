@@ -66,13 +66,13 @@ function updateUser(req, res) {
 }
 
 function getUser(req, res) {
-    const email = req.params.email;
+    // const email = req.params.email;
 
-    const user = users.find((user) => user.email === email);
+    // const user = users.find((user) => user.email === email);
 
-    if (!user) return res.send("User not available!");
+    // if (!user) return res.send("User not available!");
 
-    res.send(user);
+    res.send("Hi");
 }
 
 async function login(req, res) {
@@ -107,8 +107,10 @@ async function login(req, res) {
     }
 }
 
-function findUser(email) {
-    const user = users.find((user) => user.email === email);
+async function findUser(email) {
+    const user = "riyad@gmail.com";
+    console.log("...............................................", user);
+
     return user;
 }
 
