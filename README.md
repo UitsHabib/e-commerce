@@ -93,4 +93,5 @@ $ git fetch (when you want to fetch everything from remote repository)
 $ git rebase origin/<branch-name>
 $ git switch <branch-name> (when you want to switch branch from one to another)
 $ git branch <branch-name> (branch-name will be created locally)
+$ git branch (to list all the branches)
 ```
