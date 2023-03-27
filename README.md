@@ -91,4 +91,5 @@ $ git pull --rebase origin <branch-name> (for pull)
 $ git push --force-with-lease origin <branch-name> (for push)
 $ git fetch (when you want to fetch everything from remote repository)
 $ git rebase origin/<branch-name>
+$ git switch <branch-name> (when you want to switch branch from one to another)
 ```
