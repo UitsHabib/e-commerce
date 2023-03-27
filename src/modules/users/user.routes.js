@@ -1,23 +1,18 @@
+const { dashboard, createUser, login, updateUser, getUsers, getUserByID } = require("./user.controller");
+const { createUserSchema, userLoginSchema, updateUserSchema } = require("./user.schema");
+const validate = require( "../core/middlewares/validate" );
+const AuthStrategy = require("./user-authentication.middleware");
 
-const { getUsers, getUser, createUser, updateUser, deleteUser, login } = require('./user.controller');
-const validate = require('../core/middlewares/validate');
-const { createUserSchema, userUpdateSchema } = require('./user.schema');
-const authenticate = require('../core/middlewares/authenticate');
+module.exports = (app) => {
+    app.get('/', dashboard);
 
-module.exports = ( app ) => {
     app.route('/users')
-        .get(getUsers)
+        .get(AuthStrategy, getUsers)
         .post(validate(createUserSchema), createUser)
-        .patch(authenticate, validate(userUpdateSchema), updateUser);
+        .patch(AuthStrategy, validate(updateUserSchema), updateUser);
     
-    app.route('/users/:email')
-        .get(getUser)
-        .delete(authenticate, deleteUser);
+    app.get('/users/:id', getUserByID);
 
-    app.post('/users/login', login);
+    app.route('/users/login')
+            .post(validate(userLoginSchema), login);
 }
-
-/*
-    feature/mamun-login
-    
-*/

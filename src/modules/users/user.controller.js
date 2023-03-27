@@ -1,100 +1,149 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const User = require('./user.model');
 
-const users = [ ]
+const users = [];
 
-function getUsers( req, res ) {
-    res.send(users);
+function dashboard(req, res) {
+    res.status(200).send("Welcome to our dashboard!");
 }
 
-function getUser( req, res ) {
-    const user = users.find( user => user.email === req.params.email );
+async function getUsers(req, res){
+    try {
+        const users = await User.findAll({
+            attributes: { exclude: ['password']}
+            // attributes: ['id','firstName', 'lastName'] //code for specific field
+        });
 
-    if( !user ) return res.send("User not found!");
-
-    res.send( user );
-}
-
-function createUser ( req, res ) {
-    const { firstName, lastName, email, password } = req.body;
-
-    const hashedPassword = bcrypt.hashSync(password, 8);
-
-    const user = users.find(user => user.email === email);
-
-    if(user) return res.status(400).send("User already exists!");
-
-    const newUser = {
-        firstName, 
-        lastName,
-        email,
-        password: hashedPassword
+        res.status(200).send(users);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!");
     }
-
-    users.push(newUser);
-
-    const modifiedUser = {...newUser};
-    delete modifiedUser.password;
-
-    res.status(201).send(modifiedUser);
 }
 
-function login(req, res) {
-    const { email, password } = req.body;
+async function createUser(req, res) {
+    try {
+        const { firstName, lastName, email, password, confirmPassword } = req.body;
+        
+        const userExists = await User.findOne({
+            where: { email }
+        });
 
-    const user = users.find(user => user.email === email);
+        if (userExists) return res.status(400).send("User already registered!");
 
-    if(!user) return res.status(400).send('Invalid credential');
+        const user = await User.create({
+            firstName,
+            lastName,
+            email,
+            password
+        });
 
-    const passwordMatched = bcrypt.compareSync(password, user.password);
-
-    if(!passwordMatched) return res.status(400).send('Invalid credential');
-
-    const token = jwt.sign({ email: user.email, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET, { expiresIn: "1h", issuer: user.email });
-
-    const modifiedUser = {...user};
-    delete modifiedUser.password;
-
-    res.cookie("access_token", token, {
-        httpOnly: true
-    });
-
-    res.status(200).send(modifiedUser); // jwt => json web token
+        res.status(200).send(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!")
+    }
 }
 
-function updateUser(req, res) {  
-    const { firstName, lastName } = req.body;
-    const email = req.user.email;
-    
-    const user = users.find(user => user.email === email);
+async function getUserByID(req, res) { 
+    try {
+        const { id } = req.params;
 
-    if(!user) return res.status(404).send("User not found!");
+        const user = await User.findOne({
+            where: { id },
+            attributes: { 
+                exclude : ['password']
+            }
+        }) 
 
-    user.firstName = firstName;
-    user.lastName = lastName;
+        if(!user) return res.status(404).send("User not found!");
 
-    res.send(user);
+        res.status(200).send(user);       
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!");
+    }
 }
 
-function deleteUser( req, res ) {
-    const user = users.find( user => user.email === req.params.email );
-    
-    if( !user ) return res.send("User not found!");
-
-    users = users.filter( user => user.email !== req.params.email ); //reasign user array
-    
-    res.send(user);
+async function getUserByEmail(email) { 
+    try {
+        const user = await User.findOne({
+            where: { email }
+        })
+        
+        return user;
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!");
+    }
 }
 
-function findUser(email) {
-    const user = users.find(user => user.email === email);
-    return user;
+async function login(req, res) {  
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({
+            where: { email },
+            // attributes: { exclude: ['password']}
+        });
+
+        if(!user || !user.password || !user.validPassword(password)) return res.status(400).send("Invaid credentials!");
+
+        const token = jwt.sign({
+            firstName : user.firstName,
+            lastName  : user.lastName,
+            email     : user.email,
+            id        : user.id
+        },
+        process.env.TOKEN_SECRET,
+        {
+            expiresIn: '1h',
+            issuer: user.email,
+        });
+
+        res.cookie('access_token', token, { httpOnley: true });
+        res.status(200).send(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!");
+    }
 }
 
-module.exports.login = login;
+async function updateUser(req, res) {
+    try {
+        const { firstName, lastName } = req.body;
+        const { email } = req.user;
+
+        const user = await User.findOne({
+            where: { email },
+        });
+
+        if(!user) return res.status(404).send("User not found!");
+
+        await User.update({
+            firstName, 
+            lastName
+        },
+        {
+            where: { email }
+        });
+
+        const updateUser =  await User.findOne({
+            where: { email },
+        });
+
+        res.status(200).send(updateUser);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error!");
+    }
+}
+
+module.exports.dashboard = dashboard;
 module.exports.getUsers = getUsers;
-module.exports.getUser = getUser;
 module.exports.createUser = createUser;
+module.exports.getUserByID = getUserByID;
+module.exports.login = login;
 module.exports.updateUser = updateUser;
-module.exports.deleteUser = deleteUser;
-module.exports.findUser = findUser;
+module.exports.getUserByEmail = getUserByEmail;

@@ -1,6 +1,6 @@
 const passport = require( "passport" );
 const { Strategy } = require( "passport-jwt" );
-const { getUserByEmail } = require( "../users/user.controller" );
+const { getUserByEmail } = require("./user.controller");
 
 module.exports = function(){
     function cookieExtractor(req) {
@@ -14,7 +14,7 @@ module.exports = function(){
     }
 
     passport.use(
-        'service-jwt', 
+        'user-jwt', 
         new Strategy({
             secretOrKey: process.env.TOKEN_SECRET,
             jwtFromRequest: cookieExtractor
