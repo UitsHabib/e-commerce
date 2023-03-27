@@ -83,3 +83,12 @@ Instead, think what you would commit if there work was complete, and add (WIP) a
 #### Extra Note: Periodically clean up dead branch (created by you)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+# GIT Commands
+
+```
+$ git pull --rebase origin <branch-name> (for pull)
+$ git push --force-with-lease origin <branch-name> (for push)
+$ git fetch (when you want to fetch everything from remote repository)
+$ git rebase origin/<branch-name>
+```
