@@ -1,13 +1,10 @@
-const { getServices } = require( "./service.controller" );
-// const { createUserSchema, userLoginSchema, updateUserSchema } = require( "./user.schema");
-// const AuthStrategy = require( "./user-authentication.middleware" );
+const AuthStrategy = require( "../users/user-authentication.middleware" );
+const { getServices, getServiceByID } = require( "./service.controller" );
 
 module.exports = (app) => {
     app.route('/services')
-        .get(getServices);
-        // .post(validate(createUserSchema), createUser)
-        // .patch(AuthStrategy, validate(updateUserSchema), updateUser);
+        .get(AuthStrategy, getServices);
     
-    // app.get('/users/:id', getUserByID);
+    app.get('/services/:id',AuthStrategy, getServiceByID);
 
 }
