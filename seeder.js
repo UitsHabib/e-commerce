@@ -9,7 +9,7 @@ async function init(){
 
     await sequelize.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`)
 
-     require(path.join(process.cwd(),('/src/modules/system/admin/admin.model')))
+     require(path.join(process.cwd(),('/src/modules/user/user.model')))
 
      await sequelize.sync()
 }
