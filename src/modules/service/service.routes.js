@@ -1,4 +1,4 @@
-const AuthStrategy = require( "../users/user-authentication.middleware" );
+const AuthStrategy = require( "../user/user-authentication.middleware" );
 const { getServices, getServiceByID } = require( "./service.controller" );
 
 module.exports = (app) => {
