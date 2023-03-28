@@ -5,6 +5,5 @@ module.exports = (app) => {
     app.route('/services')
         .get(AuthStrategy, getServices);
     
-    app.get('/services/:id',AuthStrategy, getServiceByID);
-
+    app.get('/services/:id', AuthStrategy, getServiceByID);
 }
