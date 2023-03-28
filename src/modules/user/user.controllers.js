@@ -108,10 +108,12 @@ async function login(req, res) {
 }
 
 async function findUser(email) {
-    const user = "riyad@gmail.com";
-    console.log("...............................................", user);
-
-    return user;
+    try {
+        const user = await User.findOne({
+            where: { email: email },
+        });
+        return user;
+    } catch (err) {}
 }
 
 module.exports.createUser = createUser;
