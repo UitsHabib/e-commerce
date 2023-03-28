@@ -63,7 +63,7 @@ $ pnpm start
 ### Guideline for WIP 🚧 (working in progress)
 
 **_If you are committing a work in progress, for which, you cannot come up a better name, don’t just commit WIP.
-Instead, think what you would commit if there work was complete, and add (WIP) after it. Like -_**
+Instead, think what you would commit if the work was completed, and add (WIP) after it. Like -_**
 
 > login: Add Login Api
 
