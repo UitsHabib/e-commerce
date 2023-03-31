@@ -1,10 +1,10 @@
-(function () {
-  const path = require("path");
-  const config = require(path.join(process.cwd(), "src/config/index.js"));
-  config.initEnvironmentVariables();
+(function (){
+    const path = require('path');
+    const config = require(path.join(process.cwd(), './src/config/index'));
 
-  const app = require(path.join(process.cwd(), "./src/config/lib/app"));
-  app.start();
-})();
+    config.initEnvironmentVariables();
+    
+    const app = require(path.join(process.cwd(), './src/config/lib/app'));
 
-//module design pattern
+    app.start();
+})()

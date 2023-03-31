@@ -1,23 +1,21 @@
-const path = require("path");
-const express = require("express");
+const path = require('path');
+const express = require('express');
 const cookieParser = require("cookie-parser");
-const config = require("../index");
+const config = require('../index');
 
-module.exports = function () {
+module.exports = function () { 
     const app = express();
+
     app.use(express.json());
-    app.use(cookieParser("hi there"));
-    app.set("port", process.env["PORT"]);
+    app.use(cookieParser(process.env.COOKIE_SECRET));
 
-    const globalConfig = config.getGlobalConfig();
+    app.set('port', process.env.PORT);
 
-    globalConfig.routes.forEach(function (routePath) {
-        require(path.resolve(routePath))(app);
-    });
+    const globalConfig =  config.getGlobalConfig();
 
-    globalConfig.strategies.forEach(function (strategyPath) {
-        require(path.resolve(strategyPath))();
-    });
+    globalConfig.routes.forEach(routePath => require(path.resolve(routePath))(app));
 
+    globalConfig.strategies.forEach(strategyPath => require(path.resolve(strategyPath))(app));
+    
     return app;
-};
+}

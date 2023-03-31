@@ -1,21 +1,18 @@
-const {
-    createUser,
-    getUsers,
-    deleteUser,
-    updateUser,
-    getUser,
-    login,
-} = require("./user.controllers");
-const validate = require("../core/middlewires/validate");
-const { createUserSchema, updateUserSchema } = require("./user.schema");
+const { dashboard, createUser, login, updateUser, getUsers, getUserByID } = require("./user.controller");
+const { createUserSchema, userLoginSchema, updateUserSchema } = require("./user.schema");
+const validate = require( "../core/middlewares/validate" );
 const AuthStrategy = require("./user-authentication.middleware");
 
 module.exports = (app) => {
-    app.route("/users")
-        .post(validate(createUserSchema), createUser)
-        .get(getUsers)
-        .patch(AuthStrategy, validate(updateUserSchema), updateUser);
+    app.get('/', dashboard);
 
-    app.route("/users/:id").get(getUser).delete(deleteUser);
-    app.route("/users/login").post(login);
-};
+    app.route('/users')
+        .get(AuthStrategy, getUsers)
+        .post(validate(createUserSchema), createUser)
+        .patch(AuthStrategy, validate(updateUserSchema), updateUser);
+    
+    app.get('/users/:id', getUserByID);
+
+    app.route('/users/login')
+            .post(validate(userLoginSchema), login);
+}

@@ -2,7 +2,6 @@ const _ = require("lodash");
 const path = require("path");
 const glob = require("glob");
 
-// const routes = ["src/modules/user/user.routes.js"];
 let getGlobbedPaths = function (globPatterns, excludes) {
     let urlRegex = new RegExp("^(?:[a-z]+:)?//", "i");
 
@@ -38,8 +37,8 @@ let getGlobbedPaths = function (globPatterns, excludes) {
     return output;
 };
 
-function initEnvironmentVariables() {
-    require("dotenv").config();
+function initEnvironmentVariables () {  
+    require('dotenv').config();
 }
 
 function getGlobalConfig() {
@@ -56,5 +55,5 @@ function getGlobalConfig() {
     return config;
 }
 
-exports.initEnvironmentVariables = initEnvironmentVariables;
-exports.getGlobalConfig = getGlobalConfig;
+module.exports.initEnvironmentVariables = initEnvironmentVariables;
+module.exports.getGlobalConfig = getGlobalConfig;
