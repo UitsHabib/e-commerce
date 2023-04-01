@@ -6,8 +6,6 @@ import Label from '../common/label.component';
 import InputError from '../common/input_error.component';
 import { validationSchema } from './user.schema';
 
-
-
 const ChangePassword = () => {
 
     const initialValues = {
@@ -55,12 +53,11 @@ const ChangePassword = () => {
                                         <ErrorMessage name='confirm_password' component={InputError} />
                                     </div>
 
-                                    <div className="buttonWrapper">
+                                    <div className="buttonWrapper text-center">
                                         <Button 
                                             type='submit'   
                                             text='Submit'
-                                            disabled={formik.isValid ? false : true}
-                                            className={formik.isValid? 'submitButton':'disabledButton disabled'}
+                                            className={'btn btn-primary'}
                                             />
                                     </div>
 
