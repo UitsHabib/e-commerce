@@ -15,7 +15,7 @@ function VendorSignUp() {
         country: "",
     };
 
-    const onSubmit = async (values, { setSubmitting }) => {
+    const onSubmit = async (values) => {
         console.log(values);
         try {
             const response = await axios.post("http://localhost:3000/vendors", {
@@ -28,16 +28,8 @@ function VendorSignUp() {
                 city: values.city,
                 country: values.country,
             });
-            console.log(response);
-            if (response.status === 201) {
-                console.log(response);
-            } else if (response.status === 400) {
-                console.log("already registered");
-            }
-            setSubmitting(false);
         } catch (error) {
             console.log("internal server error", error);
-            setSubmitting(false);
         }
     };
 
@@ -55,144 +47,163 @@ function VendorSignUp() {
                                 validationSchema={shopSignUpSchema}
                                 onSubmit={onSubmit}
                             >
-                                {({ errors, touched, isSubmitting }) => (
-                                    <Form>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="shopName"
-                                            >
-                                                Shop Name:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="text"
-                                                id="shopName"
-                                                name="shopName"
-                                                placeholder="Enter your shopName"
-                                            />
-                                            <ErrorMessage name="shopName" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="email"
-                                            >
-                                                Email:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                placeholder="Enter your email"
-                                            />
-                                            <ErrorMessage name="email" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="password"
-                                            >
-                                                Password:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                                placeholder="Enter your password"
-                                            />
-                                            <ErrorMessage name="password" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="confirmPassword"
-                                            >
-                                                Confirm Password:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="password"
-                                                id="confirmPassword"
-                                                name="confirmPassword"
-                                                placeholder="Enter your password again"
-                                            />
-                                            <ErrorMessage name="confirmPassword" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="phoneNumber"
-                                            >
-                                                Phone Number:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="tel"
-                                                id="phoneNumber"
-                                                name="phoneNumber"
-                                                placeholder="Enter your phone number"
-                                            />
-                                            <ErrorMessage name="confirmPassword" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="address"
-                                            >
-                                                Address:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="text"
-                                                id="address"
-                                                name="address"
-                                                placeholder="Enter your Address"
-                                            />
-                                            <ErrorMessage name="address" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="city"
-                                            >
-                                                City:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="text"
-                                                id="city"
-                                                name="city"
-                                                placeholder="Enter your City"
-                                            />
-                                            <ErrorMessage name="city" />
-                                        </div>
-                                        <div>
-                                            <label
-                                                className="form-label"
-                                                htmlFor="country"
-                                            >
-                                                Country:
-                                            </label>
-                                            <Field
-                                                className="form-control"
-                                                type="text"
-                                                id="country"
-                                                name="country"
-                                            />
-                                            <ErrorMessage name="country" />
-                                        </div>
+                                {(formik) => {
+                                    return (
+                                        <Form>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="shopName"
+                                                >
+                                                    Name:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="text"
+                                                    id="shopName"
+                                                    name="shopName"
+                                                    placeholder="Enter your shopName"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="shopName" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="email"
+                                                >
+                                                    Email:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="email"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="Enter your email"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="email" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="password"
+                                                >
+                                                    Password:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="password"
+                                                    id="password"
+                                                    name="password"
+                                                    placeholder="Enter your password"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="password" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="confirmPassword"
+                                                >
+                                                    Confirm Password:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="password"
+                                                    id="confirmPassword"
+                                                    name="confirmPassword"
+                                                    placeholder="Enter your password again"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="confirmPassword" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="phoneNumber"
+                                                >
+                                                    Phone Number:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="tel"
+                                                    id="phoneNumber"
+                                                    name="phoneNumber"
+                                                    placeholder="Enter your phone number"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="phoneNumber" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="address"
+                                                >
+                                                    Address:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="text"
+                                                    id="address"
+                                                    name="address"
+                                                    placeholder="Enter your Address"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="address" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="city"
+                                                >
+                                                    City:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="text"
+                                                    id="city"
+                                                    name="city"
+                                                    placeholder="Enter your City"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="city" />
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="country"
+                                                >
+                                                    Country:
+                                                </label>
+                                                <Field
+                                                    className="form-control"
+                                                    type="text"
+                                                    id="country"
+                                                    name="country"
+                                                    placeholder="Enter your Country"
+                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="country" />
+                                                </span>
+                                            </div>
 
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary mt-2"
-                                        >
-                                            Sign Up
-                                        </button>
-                                    </Form>
-                                )}
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary mt-2"
+                                            >
+                                                Sign Up
+                                            </button>
+                                        </Form>
+                                    );
+                                }}
                             </Formik>
                         </div>
                     </div>
