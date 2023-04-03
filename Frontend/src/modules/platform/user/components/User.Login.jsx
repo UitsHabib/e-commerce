@@ -4,15 +4,16 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../../../core/common/button.component";
 import Label from "../../../core/common/label.component";
 import InputError from "../../../core/common/input_error.component";
-import { forgetPasswordSchema } from "../user.schema";
+import { LoginSchema } from "../user.schema";
+import { Link } from "react-router-dom";
 
-const ForgetPassword = () => {
+const Login = () => {
     const initialValues = {
         email: "",
+        password: "",
     };
-
     const onSubmit = (values) => {
-        console.log("values", values);
+        console.log(values);
     };
     return (
         <>
@@ -21,12 +22,13 @@ const ForgetPassword = () => {
                     <Formik
                         onSubmit={onSubmit}
                         initialValues={initialValues}
-                        validationSchema={forgetPasswordSchema}
+                        validationSchema={LoginSchema}
                     >
                         {(formik) => {
                             return (
                                 <Form name="signupForm" id="signupForm">
-                                    <div>
+                                    <h2 className="fs-3 fw-bold text-center"> Login</h2>
+                                    <div className="mt-2">
                                         <Label
                                             className="form-label"
                                             htmlFor="email"
@@ -42,13 +44,37 @@ const ForgetPassword = () => {
                                             <ErrorMessage name="email" component={InputError} />
                                         </div>
                                     </div>
+                                    <div className="mt-2">
+                                        <Label
+                                            className="form-label"
+                                            htmlFor="password"
+                                            text="Password"
+                                        />
+                                        <Field
+                                            type="password"
+                                            placeholder="Enter your password"
+                                            className="form-control"
+                                            name="password"
+                                        />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage name="password" component={InputError} />
+                                        </div>
+                                    </div>
 
                                     <div className="form-group mt-3 text-center">
                                         <Button
                                             type="submit"
-                                            text="Send"
+                                            text="Login"
                                             className="btn btn-primary"
                                         />
+                                    </div>
+                                    <div className="d-flex justify-content-between">
+                                        <p className="text-end mt-4" style={{ marginLeft: "5px" }}>
+                                            <Link to="/registration">Create New Account</Link>
+                                        </p>
+                                        <p className="text-end mt-4" style={{ marginRight: "5px" }}>
+                                            <Link to="/forgetPassword">Forget Password</Link>
+                                        </p>
                                     </div>
                                 </Form>
                             );
@@ -60,4 +86,4 @@ const ForgetPassword = () => {
     );
 };
 
-export default ForgetPassword;
+export default Login;
