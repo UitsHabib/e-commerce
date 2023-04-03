@@ -5,6 +5,7 @@ const {
     updateUser,
     getUser,
     login,
+    logout,
 } = require("./user.controllers");
 const validate = require("../core/middlewires/validate");
 const { createUserSchema, updateUserSchema } = require("./user.schema");
@@ -15,6 +16,9 @@ module.exports = (app) => {
         .post(validate(createUserSchema), createUser)
         .get(getUsers)
         .patch(AuthStrategy, validate(updateUserSchema), updateUser);
+    app.route("/users/logout").post(logout);
+
+    app.route("/user").get(AuthStrategy, getUser);
 
     app.route("/users/:id").get(getUser).delete(deleteUser);
     app.route("/users/login").post(login);
