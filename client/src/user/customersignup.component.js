@@ -48,167 +48,118 @@ const CustomerSignUp = () => {
                                 validationSchema={customerSignUpSchema}
                                 onSubmit={onSubmit}
                             >
-                                {({ touched, errors }) => (
-                                    <Form>
-                                        <div className="form-group">
-                                            <label
-                                                className="form-label"
-                                                htmlFor="firstName"
-                                            >
-                                                First Name
-                                            </label>
-                                            <Field
-                                                type="text"
-                                                className={`form-control ${
-                                                    touched.firstName &&
-                                                    errors.firstName
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="firstName"
-                                                name="firstName"
-                                                placeholder="Enter your first name"
-                                            />
-                                            <ErrorMessage
-                                                name="firstName"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label
-                                                className="form-label"
-                                                htmlFor="lastName"
-                                            >
-                                                Last Name
-                                            </label>
-                                            <Field
-                                                type="text"
-                                                className={`form-control ${
-                                                    touched.lastName &&
-                                                    errors.lastName
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="lastName"
-                                                name="lastName"
-                                                placeholder="Enter your last name"
-                                            />
-                                            <ErrorMessage
-                                                name="lastName"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label
-                                                className="form-label"
-                                                htmlFor="email"
-                                            >
-                                                Email
-                                            </label>
-                                            <Field
-                                                type="text"
-                                                className={`form-control ${
-                                                    touched.email &&
-                                                    errors.email
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="email"
-                                                name="email"
-                                                placeholder="Enter your email"
-                                            />
-                                            <ErrorMessage
-                                                name="email"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label
-                                                className="form-label"
-                                                htmlFor="password"
-                                            >
-                                                New Password
-                                            </label>
-                                            <Field
-                                                type="password"
-                                                className={`form-control ${
-                                                    touched.password &&
-                                                    errors.password
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="password"
-                                                name="password"
-                                                placeholder="Enter a new password"
-                                            />
-                                            <ErrorMessage
-                                                name="password"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label
-                                                className="form-label"
-                                                htmlFor="confirmPassword"
-                                            >
-                                                Confirm Password
-                                            </label>
-                                            <Field
-                                                type="password"
-                                                className={`form-control ${
-                                                    touched.confirmPassword &&
-                                                    errors.confirmPassword
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="confirmPassword"
-                                                name="confirmPassword"
-                                                placeholder="Confirm your new password"
-                                            />
-                                            <ErrorMessage
-                                                name="confirmPassword"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
+                                {(formik) => {
+                                    return (
+                                        <Form>
+                                            <div className="form-group">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="firstName"
+                                                >
+                                                    First Name
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="firstName"
+                                                    name="firstName"
+                                                    placeholder="Enter your first name"
+                                                />
+                                                <ErrorMessage
+                                                    name="firstName"
+                                                    // component="div"
+                                                    // className="invalid-feedback"
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="lastName"
+                                                >
+                                                    Last Name
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="lastName"
+                                                    name="lastName"
+                                                    placeholder="Enter your last name"
+                                                />
+                                                <ErrorMessage name="lastName" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="email"
+                                                >
+                                                    Email
+                                                </label>
+                                                <Field
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="email"
+                                                    name="email"
+                                                    placeholder="Enter your email"
+                                                />
+                                                <ErrorMessage name="email" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="password"
+                                                >
+                                                    New Password
+                                                </label>
+                                                <Field
+                                                    type="password"
+                                                    className="form-control"
+                                                    id="password"
+                                                    name="password"
+                                                    placeholder="Enter a new password"
+                                                />
+                                                <ErrorMessage name="password" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label
+                                                    className="form-label"
+                                                    htmlFor="confirmPassword"
+                                                >
+                                                    Confirm Password
+                                                </label>
+                                                <Field
+                                                    type="password"
+                                                    className="form-control"
+                                                    id="confirmPassword"
+                                                    name="confirmPassword"
+                                                    placeholder="Confirm your new password"
+                                                />
+                                                <ErrorMessage name="confirmPassword" />
+                                            </div>
 
-                                        <div className="form-group form-check">
-                                            <Field
-                                                type="checkbox"
-                                                className={`form-check-input ${
-                                                    touched.agree &&
-                                                    errors.agree
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
-                                                id="agree"
-                                                name="agree"
-                                            />
-                                            <label
-                                                className="form-check-label"
-                                                htmlFor="agree"
+                                            <div className="form-group form-check">
+                                                <Field
+                                                    type="checkbox"
+                                                    id="agree"
+                                                    name="agree"
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    htmlFor="agree"
+                                                >
+                                                    I agree to the terms and
+                                                    conditions
+                                                </label>
+                                                <ErrorMessage name="agree" />
+                                            </div>
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary mt-2"
                                             >
-                                                I agree to the terms and
-                                                conditions
-                                            </label>
-                                            <ErrorMessage
-                                                name="agree"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
-                                        </div>
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary mt-2"
-                                        >
-                                            Sign Up
-                                        </button>
-                                    </Form>
-                                )}
+                                                Sign Up
+                                            </button>
+                                        </Form>
+                                    );
+                                }}
                             </Formik>
                         </div>
                     </div>
