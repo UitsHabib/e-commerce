@@ -4,9 +4,8 @@ import { customerSignUpSchema } from "./signup.schema";
 
 import axios from "axios";
 
-const onSubmit = async (values, { setSubmitting }) => {
+const onSubmit = async (values) => {
     try {
-        console.log(values);
         const response = await axios.post("http://localhost:3000/users", {
             firstName: values.firstName,
             lastName: values.lastName,
@@ -14,12 +13,6 @@ const onSubmit = async (values, { setSubmitting }) => {
             password: values.password,
             confirmPassword: values.confirmPassword,
         });
-        if (response.status === 201) {
-            console.log(response);
-        } else if (response.status === 400) {
-            console.log("already registered");
-        }
-        setSubmitting(false);
     } catch (error) {
         console.log("internal server error", error);
     }
@@ -65,11 +58,9 @@ const CustomerSignUp = () => {
                                                     name="firstName"
                                                     placeholder="Enter your first name"
                                                 />
-                                                <ErrorMessage
-                                                    name="firstName"
-                                                    // component="div"
-                                                    // className="invalid-feedback"
-                                                />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="firstName" />
+                                                </span>
                                             </div>
                                             <div className="form-group">
                                                 <label
@@ -85,7 +76,9 @@ const CustomerSignUp = () => {
                                                     name="lastName"
                                                     placeholder="Enter your last name"
                                                 />
-                                                <ErrorMessage name="lastName" />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="lastName" />
+                                                </span>
                                             </div>
                                             <div className="form-group">
                                                 <label
@@ -101,7 +94,10 @@ const CustomerSignUp = () => {
                                                     name="email"
                                                     placeholder="Enter your email"
                                                 />
-                                                <ErrorMessage name="email" />
+
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="email" />
+                                                </span>
                                             </div>
                                             <div className="form-group">
                                                 <label
@@ -117,7 +113,9 @@ const CustomerSignUp = () => {
                                                     name="password"
                                                     placeholder="Enter a new password"
                                                 />
-                                                <ErrorMessage name="password" />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="password" />
+                                                </span>
                                             </div>
                                             <div className="form-group">
                                                 <label
@@ -133,7 +131,10 @@ const CustomerSignUp = () => {
                                                     name="confirmPassword"
                                                     placeholder="Confirm your new password"
                                                 />
-                                                <ErrorMessage name="confirmPassword" />
+
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="confirmPassword" />
+                                                </span>
                                             </div>
 
                                             <div className="form-group form-check">
@@ -149,7 +150,9 @@ const CustomerSignUp = () => {
                                                     I agree to the terms and
                                                     conditions
                                                 </label>
-                                                <ErrorMessage name="agree" />
+                                                <span class="text-danger">
+                                                    <ErrorMessage name="agree" />
+                                                </span>
                                             </div>
                                             <button
                                                 type="submit"
