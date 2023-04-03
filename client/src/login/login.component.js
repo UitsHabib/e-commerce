@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
-import { Navigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Toastmsg from "../common/toast.component";
 import { useNavigate } from "react-router-dom";
+
+const token = localStorage.getItem("access_token");
 
 function Login() {
     const [login, setLogin] = useState({ error: "", loggedInn: false });
@@ -35,13 +35,8 @@ function Login() {
     login.loggedInn && navigate("/dashboard", { replace: true });
 
     return (
-        <Container className="col-md-4">
+        <Container className="col-md-4 mt-5">
             <div className="text-center ">
-                <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                    style={{ width: "185px" }}
-                    alt="logo"
-                />
                 <h4 className="mt-1 mb-5 pb-1">e-Commerce</h4>
             </div>
             <Formik
@@ -59,16 +54,15 @@ function Login() {
                         <div className="input-group mb-3">
                             <span className="input-group-append">
                                 <button
-                                    className="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5"
+                                    className="btn btn-outline-secondary bg-white border ms-n5"
                                     type="button"
                                 >
                                     <i className="bi bi-envelope-check-fill"></i>
                                 </button>
                             </span>
                             <Field
-                                className="form-control border-end-0 border rounded-pill"
+                                className="form-control border"
                                 type="email"
-                                id="form3Example3"
                                 placeholder="Enter a valid email address"
                                 name="email"
                                 required
@@ -78,7 +72,7 @@ function Login() {
                         <div className="input-group mb-3">
                             <span className="input-group-append">
                                 <button
-                                    className="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5"
+                                    className="btn btn-outline-secondary bg-white border ms-n5"
                                     type="button"
                                 >
                                     <i className="bi bi-key-fill"></i>
@@ -86,8 +80,7 @@ function Login() {
                             </span>
                             <Field
                                 type="password"
-                                className="form-control border-end-0 border rounded-pill"
-                                id="form3Example4"
+                                className="form-control border"
                                 name="password"
                                 placeholder="Enter password"
                                 required
@@ -108,25 +101,22 @@ function Login() {
                                     <strong>Error! </strong>
                                     {login.error}
                                 </div>
-                                //<Toastmsg message={login.error} />
                             )}
 
                             <button
                                 type="submit"
-                                className="form-control btn btn-dark btn-lg"
+                                className="form-control btn btn-primary"
                             >
                                 Login
                             </button>
 
                             <div className="d-flex justify-content-between align-items-center">
-                                <div className="form-check mb-0">
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">
-                                        Don't have an account?{" "}
-                                        <a href="#!" className="link-dark">
-                                            Register
-                                        </a>
-                                    </p>
-                                </div>
+                                <p className="small fw-bold mt-2 pt-1 mb-0">
+                                    Don't have an account?{" "}
+                                    <a href="#!" className="link-dark">
+                                        Register
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </Form>

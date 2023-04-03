@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Logout() {
     const [logout, setLogout] = useState({ loggout: false });
+
+    const navigate = useNavigate();
 
     async function logoutHandler() {
         try {
@@ -20,9 +22,12 @@ function Logout() {
         }
     }
 
+    {
+        logout.loggout && navigate("/login", { replace: true });
+    }
+
     return (
         <div onClick={logoutHandler}>
-            {logout.loggout && <Navigate to="/" replace={true} />}
             <i className="bi bi-box-arrow-right"></i> Logout
         </div>
     );
