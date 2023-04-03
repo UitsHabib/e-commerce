@@ -52,7 +52,7 @@ function Fullnavbar({ user }) {
                             id="collasible-nav-dropdown"
                         >
                             <NavDropdown.Item>
-                                <i className="bi bi-person"></i> Profileeee
+                                <i className="bi bi-person"></i> Profile
                             </NavDropdown.Item>
                             <NavDropdown.Item>
                                 <Logout />
