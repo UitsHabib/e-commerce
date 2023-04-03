@@ -52,27 +52,40 @@ function deleteUser(req, res) {
     res.send(user);
 }
 
-function updateUser(req, res) {
-    const { firstName, lastName } = req.body;
-    const email = req.user.email;
-    const user = users.find((user) => user.email === email);
+async function updateUser(req, res) {
+    try {
+        const { firstName, lastName } = req.body;
+        const email = req.user.email;
 
-    if (!user) return res.status(404).send("User not available!");
+        const user = await User.findOne({
+            where: { email },
+        });
 
-    user.firstName = firstName;
-    user.lastName = lastName;
+        if (!user) return res.status(404).send("User not found");
 
-    res.send(user);
+        await Permission.update(
+            {
+                firstName,
+                lastName,
+            },
+            { where: { email } }
+        );
+
+        const updatedUser = await User.findOne({
+            where: { email },
+        });
+        res.status(200).send(updateUser);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
 }
 
 function getUser(req, res) {
-    // const email = req.params.email;
-
-    // const user = users.find((user) => user.email === email);
-
-    // if (!user) return res.send("User not available!");
-
-    res.send("Hi");
+    res.status(200).send(req.user);
+}
+function logout(req, res) {
+    res.status(200).send(req.user);
 }
 
 async function login(req, res) {
@@ -100,7 +113,8 @@ async function login(req, res) {
         res.cookie("access_token", token, {
             httpOnly: true,
         });
-        res.status(200).send(user);
+
+        res.status(200).send(token);
     } catch (err) {
         console.log(err);
         res.status(500).send("Internal server error");
@@ -108,10 +122,12 @@ async function login(req, res) {
 }
 
 async function findUser(email) {
-    const user = "riyad@gmail.com";
-    console.log("...............................................", user);
-
-    return user;
+    try {
+        const user = await User.findOne({
+            where: { email: email },
+        });
+        return user;
+    } catch (err) {}
 }
 
 module.exports.createUser = createUser;
@@ -120,4 +136,5 @@ module.exports.deleteUser = deleteUser;
 module.exports.updateUser = updateUser;
 module.exports.getUser = getUser;
 module.exports.login = login;
+module.exports.logout = logout;
 module.exports.findUser = findUser;
