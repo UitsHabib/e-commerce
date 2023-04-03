@@ -1,13 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { signUpSchema } from "../user.schema";
+import { RegistrationSchema } from "../user.schema";
 
 import Button from "../../../core/common/button.component";
 import Label from "../../../core/common/label.component";
 import InputError from "../../../core/common/input_error.component";
-import LOGO from "../../../../images/337656488_764133375266416_3958272406946239868_n.png";
 
-const SignUp = () => {
+const Registration = () => {
     const initialValues = {
         firstName: "",
         lastName: "",
@@ -20,98 +19,106 @@ const SignUp = () => {
     };
     return (
         <>
-            <div className="main-container">
-                <div className="cardStyle">
+            <div className="container card mt-5" style={{ width: "40%" }}>
+                <div className="card-body px-5">
                     <Formik
                         onSubmit={onSubmit}
                         initialValues={initialValues}
-                        validationSchema={signUpSchema}
+                        validationSchema={RegistrationSchema}
                     >
                         {(formik) => {
                             return (
                                 <Form name="signupForm" id="signupForm">
-                                    <img src={LOGO} id="signupLogo" />
-                                    <h2 className="formTitle"> Sign Up here</h2>
-                                    <div className="inputDiv">
+                                    <h2 className="fs-3 text-center fw-bold"> Register</h2>
+                                    <div className="mt-2">
                                         <Label
-                                            className="inputLabel"
+                                            className="form-label"
                                             htmlFor="firstName"
                                             text="First Name"
                                         />
                                         <Field
                                             type="text"
-                                            placeholder="enter your first name"
-                                            className="custom_input"
+                                            placeholder="Enter your first name"
+                                            className="form-control"
                                             name="firstName"
                                         />
-                                        <ErrorMessage name="firstName" component={InputError} />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage name="firstName" component={InputError} />
+                                        </div>
                                     </div>
-                                    <div className="inputDiv">
+                                    <div className="mt-2">
                                         <Label
-                                            className="inputLabel"
+                                            className="form-label"
                                             htmlFor="lastName"
                                             text="Last Name"
                                         />
                                         <Field
                                             type="text"
-                                            placeholder="enter your last name"
-                                            className="custom_input"
+                                            placeholder="Enter your last name"
+                                            className="form-control"
                                             name="lastName"
                                         />
-                                        <ErrorMessage name="lastName" component={InputError} />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage name="lastName" component={InputError} />
+                                        </div>
                                     </div>
-                                    <div className="inputDiv">
+                                    <div className="mt-2">
                                         <Label
-                                            className="inputLabel"
+                                            className="form-label"
                                             htmlFor="email"
                                             text="Email"
                                         />
                                         <Field
                                             type="email"
-                                            placeholder="enter your email"
-                                            className="custom_input"
+                                            placeholder="Enter your email"
+                                            className="form-control"
                                             name="email"
                                         />
-                                        <ErrorMessage name="email" component={InputError} />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage name="email" component={InputError} />
+                                        </div>
                                     </div>
-                                    <div className="inputDiv">
+                                    <div className="mt-2">
                                         <Label
-                                            className="inputLabel"
+                                            className="form-label"
                                             htmlFor="password"
                                             text="Password"
                                         />
                                         <Field
                                             type="password"
-                                            placeholder="enter your password"
-                                            className="custom_input"
+                                            placeholder="Enter your password"
+                                            className="form-control"
                                             name="password"
                                         />
-                                        <ErrorMessage name="password" component={InputError} />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage name="password" component={InputError} />
+                                        </div>
                                     </div>
-                                    <div className="inputDiv">
+                                    <div className="mt-2">
                                         <Label
-                                            className="inputLabel"
+                                            className="form-label"
                                             htmlFor="confirmPassword"
                                             text="Confrim Password"
                                         />
                                         <Field
                                             type="password"
-                                            placeholder="enter your password"
-                                            className="custom_input"
+                                            placeholder="Enter your password"
+                                            className="form-control"
                                             name="confirmPassword"
                                         />
-                                        <ErrorMessage
-                                            name="confirmPassword"
-                                            component={InputError}
-                                        />
+                                        <div className="invaild-feedback">
+                                            <ErrorMessage
+                                                name="confirmPassword"
+                                                component={InputError}
+                                            />
+                                        </div>
                                     </div>
 
-                                    <div className="buttonWrapper tex-center">
+                                    <div className="form-group mt-3 text-center">
                                         <Button
                                             type="submit"
-                                            text="Sign Up"
-                                            disabled={formik.isValid ? false : true}
-                                            className="submitButton"
+                                            text="Register"
+                                            className="btn btn-primary"
                                         />
                                     </div>
                                 </Form>
@@ -124,4 +131,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Registration;
