@@ -20,8 +20,8 @@ const ChangePassword = () => {
 
     return (
         <div>
-            <div className="change_password">
-                <div className="cardStyle">
+            <div className="container my-5">
+                <div >
                     <Formik
                         onSubmit={onSubmit}
                         initialValues={initialValues}
@@ -30,37 +30,36 @@ const ChangePassword = () => {
                         {
                             (formik) => {
 
-                                return <Form action="" method="post" name="signupForm" id="signupForm">
+                                return <Form
+                                            className="row card p-3 col-md-4 d-flex flex-column  m-auto"
+                                        >
+                                    <h3 className='text-center'> Change Password</h3>
 
-
-                                    <h2 className="formTitle"> Change Password</h2>
-
-                                    <div className="inputDiv">
-                                        <Label className='inputLabel' htmlFor='email' text='Email' />
-                                        <Field type="email" className='custom_input' name="email" />
+                                    <div className="form-group my-1 ">
+                                        <Label className='form-label' htmlFor='email' text='Email' />
+                                        <Field type="email" className='form-control' name="email" />
                                         <ErrorMessage name='email' component={InputError} />
                                     </div>
 
-                                    <div className="inputDiv">
-                                        <Label className='inputLabel' htmlFor='password' text='New Password' />
-                                        <Field type="password" className='custom_input' name="password" />
+                                    <div className="form-group my-1">
+                                        <Label className='form-label' htmlFor='password' text='New Password' />
+                                        <Field type="password" className='form-control' name="password" />
                                         <ErrorMessage name='password' component={InputError} />
                                     </div>
 
-                                    <div className="inputDiv">
-                                        <Label className='inputLabel' htmlFor='confirm_password' text='Confirm Password' />
-                                        <Field type="password" className='custom_input' name="confirm_password" />
+                                    <div className="form-group my-1">
+                                        <Label className='form-label' htmlFor='confirm_password' text='Confirm Password' />
+                                        <Field type="password" className='form-control' name="confirm_password" />
                                         <ErrorMessage name='confirm_password' component={InputError} />
                                     </div>
 
-                                    <div className="buttonWrapper text-center">
-                                        <Button 
-                                            type='submit'   
+                                    <div className="form-group text-center">
+                                        <Button
+                                            type='submit'
                                             text='Submit'
                                             className={'btn btn-primary'}
-                                            />
+                                        />
                                     </div>
-
                                 </Form>
                             }
                         }
