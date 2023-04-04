@@ -10,21 +10,21 @@ const Permission = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
         },
-        permissionName: {
+        name: {
             allowNull: true,
             type: DataTypes.STRING,
         },
-        services: {
+        description: {
             allowNull: true,
-            type: DataTypes.JSON,
+            type: DataTypes.STRING,
         },
         created_by: {
-            allowNull: false,
-            type: DataTypes.STRING,
+            allowNull: true,
+            type: DataTypes.UUID,
         },
         updated_by: {
-            allowNull: false,
-            type: DataTypes.STRING,
+            allowNull: true,
+            type: DataTypes.UUID,
         },
     },
     {
