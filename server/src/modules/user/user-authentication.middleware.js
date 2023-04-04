@@ -7,7 +7,6 @@ function AuthStrategy(req, res, next) {
             console.log(err);
             return res.status(500).send("Internal server error");
         }
-        console.log("..........................User ashche", user);
 
         if (!user) return res.status(401).send("Unauthenticated user");
 

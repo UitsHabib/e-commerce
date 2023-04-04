@@ -1,30 +1,22 @@
+import React, { useState, useEffect } from "react";
 import Fullnavbar from "./navbar.component";
+import { useNavigate } from "react-router-dom";
+
+const token = localStorage.getItem("access_token");
+const access_token = `Bearer ${token}`;
+const headers = {
+    Authorization: access_token,
+};
 
 function Dashboard() {
-    // async function loginHandler(values) {
-    //     try {
-    //         const res = await axios.get("http://localhost:3000/user", {
-    //             email: values.email,
-    //             password: values.password,
-    //         });
-    //         if (res.status === 200) {
-    //             localStorage.setItem("access_token", res.data);
-    //             setLogin({
-    //                 ...login,
-    //                 loggedInn: true,
-    //             });
-    //         }
-    //     } catch (err) {
-    //         setLogin({
-    //             ...login,
-    //             error: "Invalid credintials",
-    //         });
-    //     }
-    // }
+    const [user, setUser] = useState("Noman");
+
+    const navigate = useNavigate();
+    token === null && navigate("/login", { replace: true });
 
     return (
         <>
-            <Fullnavbar />
+            <Fullnavbar user={user} />
         </>
     );
 }

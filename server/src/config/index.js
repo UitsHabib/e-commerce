@@ -56,5 +56,5 @@ function getGlobalConfig() {
     return config;
 }
 
-exports.initEnvironmentVariables = initEnvironmentVariables;
-exports.getGlobalConfig = getGlobalConfig;
+module.exports.initEnvironmentVariables = initEnvironmentVariables;
+module.exports.getGlobalConfig = getGlobalConfig;

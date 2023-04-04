@@ -1,8 +1,8 @@
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../../config/lib/sequelize");
-const { DataTypes, STRING } = require("sequelize");
 
-const Permission_service = sequelize.define(
-    "permission_service",
+const Profile = sequelize.define(
+    "profiles",
     {
         id: {
             allowNull: false,
@@ -10,29 +10,32 @@ const Permission_service = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
         },
-        permission_id: {
+        name: {
             allowNull: true,
             type: DataTypes.STRING,
         },
-        service_id: {
+        description: {
             allowNull: true,
             type: DataTypes.JSON,
         },
+        type: {
+            type: DataTypes.ENUM,
+            values: ["standard", "custom"],
+            defaultValue: "custom",
+        },
         created_by: {
-            allowNull: false,
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
         },
         updated_by: {
-            allowNull: false,
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
         },
     },
     {
-        tableName: "permission_service",
+        tableName: "profiles",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
     }
 );
 
-module.exports = Permission_service;
+module.exports = Profile;
