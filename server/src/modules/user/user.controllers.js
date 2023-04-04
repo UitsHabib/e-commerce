@@ -39,18 +39,7 @@ async function getUsers(req, res) {
     }
 }
 
-function deleteUser(req, res) {
-    const email = req.params.email;
-
-    const user = users.find((user) => user.email === email);
-
-    if (!user) return res.send("User not found!");
-
-    const index = users.findIndex((user) => user.email === email);
-
-    users.splice(index, 1);
-    res.send(user);
-}
+function deleteUser(req, res) {}
 
 async function updateUser(req, res) {
     try {
@@ -63,7 +52,7 @@ async function updateUser(req, res) {
 
         if (!user) return res.status(404).send("User not found");
 
-        await Permission.update(
+        await User.update(
             {
                 firstName,
                 lastName,
@@ -94,7 +83,6 @@ async function login(req, res) {
 
         const user = await User.findOne({
             where: { email },
-            // attributes: { exclude: ["password"] },
         });
         if (!user || !user.password || !user.validPassword(password))
             return res.status(400).send("Invalid Credintials");
@@ -127,7 +115,9 @@ async function findUser(email) {
             where: { email: email },
         });
         return user;
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 module.exports.createUser = createUser;
