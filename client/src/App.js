@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./common/dashboard.component";
 import Login from "./login/login.component";
-<<<<<<< HEAD
+
 import ChangePassword from "./user/ChangePassword";
-=======
+
 import AdminDashboard from "./admin/admin-dashboard.component";
->>>>>>> 9733f31 (Update Server)
+
+import CustomerSignUp from "./user/customersignup.component";
+import VendorSignUp from "./user/vendorsignup.component";
 
 function App() {
     return (
@@ -13,8 +15,10 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path='/change-password' element={<ChangePassword />} />
+                <Route path="/change-password" element={<ChangePassword />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/customer-signup" element={<CustomerSignUp />} />
+                <Route path="/vendor-signup" element={<VendorSignUp />} />
             </Routes>
         </>
     );

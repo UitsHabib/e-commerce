@@ -65,22 +65,13 @@ function VendorSignUp() {
                                                 Shop Name:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.shopName &&
-                                                    errors.shopName
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="text"
                                                 id="shopName"
                                                 name="shopName"
                                                 placeholder="Enter your shopName"
                                             />
-                                            <ErrorMessage
-                                                name="shopName"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="shopName" />
                                         </div>
                                         <div>
                                             <label
@@ -90,22 +81,13 @@ function VendorSignUp() {
                                                 Email:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.email &&
-                                                    errors.email
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="email"
                                                 id="email"
                                                 name="email"
                                                 placeholder="Enter your email"
                                             />
-                                            <ErrorMessage
-                                                name="email"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="email" />
                                         </div>
                                         <div>
                                             <label
@@ -115,22 +97,13 @@ function VendorSignUp() {
                                                 Password:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.password &&
-                                                    errors.password
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="password"
                                                 id="password"
                                                 name="password"
                                                 placeholder="Enter your password"
                                             />
-                                            <ErrorMessage
-                                                name="password"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="password" />
                                         </div>
                                         <div>
                                             <label
@@ -140,22 +113,13 @@ function VendorSignUp() {
                                                 Confirm Password:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.confirmPassword &&
-                                                    errors.confirmPassword
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="password"
                                                 id="confirmPassword"
                                                 name="confirmPassword"
                                                 placeholder="Enter your password again"
                                             />
-                                            <ErrorMessage
-                                                name="confirmPassword"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="confirmPassword" />
                                         </div>
                                         <div>
                                             <label
@@ -165,22 +129,13 @@ function VendorSignUp() {
                                                 Phone Number:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.phoneNumber &&
-                                                    errors.phoneNumber
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="tel"
                                                 id="phoneNumber"
                                                 name="phoneNumber"
                                                 placeholder="Enter your phone number"
                                             />
-                                            <ErrorMessage
-                                                name="confirmPassword"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="confirmPassword" />
                                         </div>
                                         <div>
                                             <label
@@ -190,22 +145,13 @@ function VendorSignUp() {
                                                 Address:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.address &&
-                                                    errors.address
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="text"
                                                 id="address"
                                                 name="address"
                                                 placeholder="Enter your Address"
                                             />
-                                            <ErrorMessage
-                                                name="address"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="address" />
                                         </div>
                                         <div>
                                             <label
@@ -215,21 +161,13 @@ function VendorSignUp() {
                                                 City:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.city && errors.city
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="text"
                                                 id="city"
                                                 name="city"
                                                 placeholder="Enter your City"
                                             />
-                                            <ErrorMessage
-                                                name="city"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="city" />
                                         </div>
                                         <div>
                                             <label
@@ -239,26 +177,17 @@ function VendorSignUp() {
                                                 Country:
                                             </label>
                                             <Field
-                                                className={`form-control ${
-                                                    touched.country &&
-                                                    errors.country
-                                                        ? "is-invalid"
-                                                        : ""
-                                                }`}
+                                                className="form-control"
                                                 type="text"
                                                 id="country"
                                                 name="country"
                                             />
-                                            <ErrorMessage
-                                                name="country"
-                                                component="div"
-                                                className="invalid-feedback"
-                                            />
+                                            <ErrorMessage name="country" />
                                         </div>
 
                                         <button
                                             type="submit"
-                                            className="btn btn-primary btn-dark mt-2"
+                                            className="btn btn-primary mt-2"
                                         >
                                             Sign Up
                                         </button>
