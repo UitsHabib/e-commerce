@@ -18,6 +18,11 @@ const Profile = sequelize.define(
             allowNull: true,
             type: DataTypes.JSON,
         },
+        type: {
+            type: DataTypes.ENUM,
+            values: ["standard", "custom"],
+            defaultValue: "custom",
+        },
         created_by: {
             type: DataTypes.UUID,
         },
