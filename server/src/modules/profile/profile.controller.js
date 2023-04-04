@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Profile = require("./profile.model");
+const PermissionProfile = require("./permission_profile.model");
+const Permission = require("../Permission/permission.model");
+// const { include } = require("lodash");
 
 async function createProfile(req, res) {
     try {
@@ -13,9 +16,9 @@ async function createProfile(req, res) {
             return res.status(400).send("Already created this profile");
 
         const profile = await Profile.create({
-            profile_name,
+            name,
             description,
-            permission_id: permission_id.join(","),
+            // permission_id: permission_id.join(","),
         });
         res.status(201).send(profile);
     } catch (err) {
@@ -26,7 +29,21 @@ async function createProfile(req, res) {
 
 async function getProfiles(req, res) {
     try {
-        const profiles = await Profile.findAll();
+        const profiles = await Profile.findAll({
+            include: [
+                {
+                    model: PermissionProfile,
+                    as: "permissionProfiles",
+                    include: [
+                        {
+                            model: Permission,
+                            as: "permission",
+                        },
+                    ],
+                },
+            ],
+        });
+
         res.status(200).send(profiles);
     } catch (err) {
         console.log(err);

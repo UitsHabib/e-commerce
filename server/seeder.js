@@ -1,5 +1,6 @@
 const path = require("path");
 const async = require("async");
+const { values } = require("lodash");
 
 async function init() {
     const config = require("./src/config");
@@ -14,15 +15,17 @@ async function init() {
     const Permission = require("./src/modules/permission/permission.model");
     const ServicePermission = require("./src/modules/permission/service_permission.model");
     const Service = require("./src/modules/service/service.model");
+    const Profile = require("./src/modules/profile/profile.model");
+    const PermissionProfile = require("./src/modules/profile/permission_profile.model");
 
     await sequelize.sync();
 
     function userSeeder(callback) {
         User.findOrCreate({
-            where: { email: "abunoman603@gmail.com" },
+            where: { email: "mamunkhan069@gmail.com" },
             defaults: {
-                firstName: "Abu",
-                lastName: "Noman",
+                firstName: "Mamun",
+                lastName: "khan",
                 password: "12345678",
             },
         }).then((users) => {
@@ -71,14 +74,14 @@ async function init() {
                 updated_by: userId,
             },
             {
-                name: "Customer Permissions",
-                description: "Noman",
+                name: "Customer Permission",
+                description: "Admin can manage all services",
                 created_by: userId,
                 updated_by: userId,
             },
             {
-                name: "Vendor Permissions",
-                description: "Noman",
+                name: "Vendor Permission",
+                description: "Admin can manage all services",
                 created_by: userId,
                 updated_by: userId,
             },
@@ -138,7 +141,14 @@ async function init() {
     }
 
     async.waterfall(
-        [userSeeder, serviceSeeder, permissionSeeder, permissionServiceSeeder],
+        [
+            userSeeder,
+            serviceSeeder,
+            permissionSeeder,
+            permissionServiceSeeder,
+            profileSeeder,
+            profilePermissionSeeder,
+        ],
         (err) => {
             if (err) console.error(err);
             else console.log("DB seed completed");

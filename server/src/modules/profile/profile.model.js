@@ -13,22 +13,15 @@ const Profile = sequelize.define(
         name: {
             allowNull: true,
             type: DataTypes.STRING,
-            unique: true,
         },
         description: {
             allowNull: true,
-            type: DataTypes.STRING,
-        },
-        permission_id: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.JSON,
         },
         created_by: {
-            allowNull: false,
             type: DataTypes.UUID,
         },
         updated_by: {
-            allowNull: false,
             type: DataTypes.UUID,
         },
     },

@@ -19,11 +19,9 @@ const Permission = sequelize.define(
             type: DataTypes.STRING,
         },
         created_by: {
-            allowNull: true,
             type: DataTypes.UUID,
         },
         updated_by: {
-            allowNull: true,
             type: DataTypes.UUID,
         },
     },
