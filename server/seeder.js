@@ -22,18 +22,66 @@ async function init() {
 
     function userSeeder(callback) {
         User.findOrCreate({
-            where: { email: "mamunkhan069@gmail.com" },
+            where: { email: "admin@commerce.com" },
             defaults: {
-                firstName: "Mamun",
-                lastName: "khan",
-                password: "12345678",
+                firstName: "System",
+                lastName: "Admin",
+                password: "P@ssword123",
             },
         }).then((users) => {
             callback(null, users[0].id);
         });
     }
 
+    function profileSeeder(userId, callback) {
+        const profiles = [
+            {
+                name: "System Admin",
+                description: "Noman",
+                type: "standard",
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Customer",
+                description: "Noman",
+                type: "standard",
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Vendor",
+                description: "Noman",
+                type: "standard",
+                created_by: userId,
+                updated_by: userId,
+            },
+        ];
+
+        Profile.destroy({ truncate: { cascade: true } }).then(() => {
+            Profile.bulkCreate(profiles, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
+        });
+    }
+
+    function userUpdateSeeder(userId, callback) {
+        User.findOne({ where: { id: userId } }).then((admin) => {
+            Profile.findOne({ where: { name: "System Admin" } }).then(
+                (systemAdminProfile) => {
+                    admin.update({ profile_id: systemAdminProfile.id });
+
+                    callback(null, userId);
+                }
+            );
+        });
+    }
+
     function serviceSeeder(userId, callback) {
+        console.log("-----------------service seeder");
         const services = [
             {
                 name: "User Management",
@@ -60,6 +108,7 @@ async function init() {
                 returning: true,
                 ignoreDuplicates: false,
             }).then(() => {
+                console.log("-----------------service seed completed");
                 callback(null, userId);
             });
         });
@@ -70,18 +119,21 @@ async function init() {
             {
                 name: "System Admin Permissions",
                 description: "Noman",
+                type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Customer Permission",
                 description: "Admin can manage all services",
+                type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Vendor Permission",
                 description: "Admin can manage all services",
+                type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
@@ -140,13 +192,57 @@ async function init() {
         });
     }
 
+    function profilePermissionSeeder(userId, callback) {
+        Promise.all([
+            Permission.findOne({ where: { name: "System Admin Permissions" } }),
+            Permission.findOne({ where: { name: "Customer Permission" } }),
+            Permission.findOne({ where: { name: "Vendor Permission" } }),
+
+            Profile.findOne({ where: { name: "System Admin" } }),
+        ]).then((values) => {
+            const [
+                systemAdminPermission,
+                customerPermission,
+                vendorPermission,
+                systemAdminProfile,
+            ] = values;
+
+            const profilePermissions = [
+                {
+                    profile_id: systemAdminProfile.id,
+                    permission_id: systemAdminPermission.id,
+                },
+                {
+                    profile_id: systemAdminProfile.id,
+                    permission_id: customerPermission.id,
+                },
+                {
+                    profile_id: systemAdminProfile.id,
+                    permission_id: vendorPermission.id,
+                },
+            ];
+
+            PermissionProfile.destroy({ truncate: { cascade: true } }).then(
+                () => {
+                    PermissionProfile.bulkCreate(profilePermissions, {
+                        returning: true,
+                        ignoreDuplicates: false,
+                    }).then(() => {
+                        callback(null, userId);
+                    });
+                }
+            );
+        });
+    }
+
     async.waterfall(
         [
             userSeeder,
+            profileSeeder,
+            userUpdateSeeder,
             serviceSeeder,
             permissionSeeder,
             permissionServiceSeeder,
-            profileSeeder,
             profilePermissionSeeder,
         ],
         (err) => {

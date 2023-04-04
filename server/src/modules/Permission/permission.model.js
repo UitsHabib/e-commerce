@@ -18,6 +18,11 @@ const Permission = sequelize.define(
             allowNull: true,
             type: DataTypes.STRING,
         },
+        type: {
+            type: DataTypes.ENUM,
+            values: ["standard", "custom"],
+            defaultValue: "custom",
+        },
         created_by: {
             type: DataTypes.UUID,
         },

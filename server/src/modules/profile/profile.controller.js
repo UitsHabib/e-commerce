@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const Profile = require("./profile.model");
 const PermissionProfile = require("./permission_profile.model");
 const Permission = require("../Permission/permission.model");
+const ServicePermission = require("../permission/service_permission.model");
+const Service = require("../service/service.model");
 // const { include } = require("lodash");
 
 async function createProfile(req, res) {
@@ -38,6 +40,18 @@ async function getProfiles(req, res) {
                         {
                             model: Permission,
                             as: "permission",
+                            include: [
+                                {
+                                    model: ServicePermission,
+                                    as: "permissionServices",
+                                    include: [
+                                        {
+                                            model: Service,
+                                            as: "service",
+                                        },
+                                    ],
+                                },
+                            ],
                         },
                     ],
                 },

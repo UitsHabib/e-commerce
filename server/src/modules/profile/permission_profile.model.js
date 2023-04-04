@@ -32,15 +32,15 @@ Profile.hasMany(PermissionProfile, {
     foreignKey: "profile_id",
 });
 
-PermissionProfile.belongsTo(Profile, {
-    as: "profile",
-    foreignKey: "profile_id",
-});
+// PermissionProfile.belongsTo(Profile, {
+//     as: "profile",
+//     foreignKey: "profile_id",
+// });
 
-Permission.hasMany(PermissionProfile, {
-    as: "permissionProfiles",
-    foreignKey: "permission_id",
-});
+// Permission.hasMany(PermissionProfile, {
+//     as: "permissionProfiles",
+//     foreignKey: "permission_id",
+// });
 
 PermissionProfile.belongsTo(Permission, {
     as: "permission",

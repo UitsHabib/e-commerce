@@ -11,6 +11,10 @@ const User = sequelize.define(
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
         },
+        profile_id: {
+            type: DataTypes.UUID,
+            allowNull: true,
+        },
         firstName: {
             allowNull: true,
             type: DataTypes.STRING,
