@@ -18,8 +18,6 @@ module.exports = (app) => {
         .patch(AuthStrategy, validate(updateUserSchema), updateUser);
     app.route("/users/logout").post(logout);
 
-    app.route("/user").get(AuthStrategy, getUser);
-
     app.route("/users/:id").get(getUser).delete(deleteUser);
     app.route("/users/login").post(login);
 };

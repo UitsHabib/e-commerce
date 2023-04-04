@@ -8,7 +8,6 @@ module.exports = function () {
     const app = express();
     app.use(express.json());
     app.use(cookieParser("hi there"));
-    app.set("port", process.env["PORT"]);
 
     const corsOptions = {
         credentials: true,
@@ -19,6 +18,8 @@ module.exports = function () {
         },
     };
     app.use(cors(corsOptions));
+
+    app.set("port", process.env["PORT"]);
 
     const globalConfig = config.getGlobalConfig();
 
