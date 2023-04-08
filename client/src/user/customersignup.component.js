@@ -5,6 +5,7 @@ import { customerSignUpSchema } from "./signup.schema";
 import axios from "axios";
 
 const onSubmit = async (values) => {
+    console.log("valueee", values);
     try {
         const response = await axios.post("http://localhost:3000/users", {
             firstName: values.firstName,

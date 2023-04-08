@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const customerSignUpSchema = Yup.object().shape({
     firstName: Yup.string()
-        .min(2, "Password must be at least 2 characters")
+        .min(2, "first must be at least 2 characters")
         .required("First name is required"),
     lastName: Yup.string().required("Last name is required"),
     email: Yup.string()
