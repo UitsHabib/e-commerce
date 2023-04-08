@@ -5,14 +5,12 @@ import reducers from "./reducers";
 
 const middlewares = [promise, logger];
 
-// if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-//     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-// }
-
 const store = configureStore({
-    reducer: reducers,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(middlewares),
+  reducer: reducers,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(middlewares),
 });
 
 export default store;
