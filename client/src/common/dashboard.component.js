@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Fullnavbar from "./navbar.component";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const token = localStorage.getItem("access_token");
 const access_token = `Bearer ${token}`;
@@ -17,6 +17,7 @@ function Dashboard() {
     return (
         <>
             <Fullnavbar user={user} />
+            <Outlet />
         </>
     );
 }
