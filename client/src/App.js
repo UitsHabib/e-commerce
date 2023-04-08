@@ -10,23 +10,20 @@ import PermissionTable from "./permission/permissionTable.component";
 import PermissionCreate from "./permission/permission.create";
 
 function App() {
-    return (
-        <>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/change-password" element={<ChangePassword />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/customer-signup" element={<CustomerSignUp />} />
-                <Route path="/vendor-signup" element={<VendorSignUp />} />
-                <Route path="/permission" element={<PermissionTable />} />
-                <Route
-                    path="/permission/create"
-                    element={<PermissionCreate />}
-                />
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/customer-signup" element={<CustomerSignUp />} />
+        <Route path="/vendor-signup" element={<VendorSignUp />} />
+        <Route path="/permission" element={<PermissionTable />} />
+        <Route path="/permission/create" element={<PermissionCreate />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
