@@ -7,7 +7,8 @@
 =======
         "charecters",
         "Formik",
-        "reduxjs"
+        "reduxjs",
+        "toastify"
     ]
 }
 >>>>>>> e288cea (resolve conflict)
