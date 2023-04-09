@@ -97,6 +97,7 @@ async function login(req, res) {
             process.env.TOKEN_SECRET,
             { expiresIn: "1h", issuer: user.email }
         );
+        user.dataValues.token = token;
         delete user.dataValues.password;
 
         res.cookie("access_token", token, {

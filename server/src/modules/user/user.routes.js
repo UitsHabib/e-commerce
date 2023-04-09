@@ -14,7 +14,7 @@ const AuthStrategy = require("./user-authentication.middleware");
 module.exports = (app) => {
     app.route("/users")
         .post(validate(createUserSchema), createUser)
-        .get(getUsers)
+        .get(AuthStrategy, getUsers)
         .patch(AuthStrategy, validate(updateUserSchema), updateUser);
     app.route("/users/logout").post(logout);
 
