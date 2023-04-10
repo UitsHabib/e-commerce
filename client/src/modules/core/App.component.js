@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Home from "./components/Home";
-import NewDashboard from "./components/NewDashboard";
+import NewDashboard from "./components/new-dashboard.component";
 import { AdminList } from "../admin";
 import { Login, ChangePassword } from '../user';
 
