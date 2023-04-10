@@ -3,9 +3,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Home from "./components/Home";
-import NewDashboard from "../core/components/NewDashboard";
-import AdminRoutes from "../admins";
-import UserRoutes from '../users';
+import NewDashboard from "./components/NewDashboard";
+import { AdminList } from "../admin";
+import { Login, ChangePassword } from '../user';
 
 function App() {
     return (
@@ -26,12 +26,12 @@ function App() {
 
             <Routes>
 
-                <Route path="/login" element={<UserRoutes.Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path='/' element={<NewDashboard />} >
 
                     <Route index element={<Home />} />
-                    <Route path='/change-password' element={<UserRoutes.ChangePassword />} />
-                    <Route path='/admins' element={<AdminRoutes.AdminList />} />
+                    <Route path='/change-password' element={<ChangePassword />} />
+                    <Route path='/admins' element={<AdminList />} />
 
                 </Route>
             </Routes>
