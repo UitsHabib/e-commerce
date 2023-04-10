@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import InputError from '../../core/components/input_error.component';
 import { validationSchema } from '../admin.schema';
 import { useDispatch } from 'react-redux';
-import { getAdmins, storeAdmin } from './../admin.actions';
+import { getAdmins, storeAdmin } from '../admin.actions';
 import Button from '../../core/components/button.component';
 import Label from '../../core/components/label.component';
 
