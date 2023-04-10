@@ -1,23 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from '../common/button.component';
 import Label from '../common/label.component';
 import InputError from '../common/input_error.component';
 import { validationSchema } from './user.schema';
+import getUser from './user.actions';
 
 
 
 const ChangePassword = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const users = useSelector(state => state.userReducer.userList)
 
     const initialValues = {
         email: '',
         password: '',
         confirm_password: ""
     }
+    useEffect(() => {
+        async function userList(){
+            dispatch(getUser())
+         
+        }
+        userList();
+        
+    }, [])
+    
 
-    const onSubmit = values => {
-        console.log('values', values)
+    const onSubmit = ({ email, password }) => {
+
+        async function checkAuth() {
+            try {
+
+                const url = `https://dummyjson.com/users/filter`;
+                const firstQuery = `key=email&value=${email}`;
+
+                const isAuthenticatedUser = await axios.get(`${url}?${firstQuery}`);
+
+                isAuthenticatedUser.data.users.length > 0 ? navigate('/') : alert('Unathorized')
+
+            } catch (err) {
+                console.log(err)
+            }
+         
+        }
+        checkAuth();
+
     }
 
     return (
