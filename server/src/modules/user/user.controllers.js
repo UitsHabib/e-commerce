@@ -2,12 +2,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./user.model");
 
-const users = [];
-
 async function createUser(req, res) {
     try {
-        const { firstName, lastName, email, password, confirmPassword } =
-            req.body;
+        const { firstName, lastName, email, password } = req.body;
 
         const existUser = await User.findOne({
             where: { email },
@@ -63,7 +60,7 @@ async function updateUser(req, res) {
         const updatedUser = await User.findOne({
             where: { email },
         });
-        res.status(200).send(updateUser);
+        res.status(200).send(updatedUser);
     } catch (err) {
         console.log(err);
         res.status(500).send("Internal server error");
@@ -102,6 +99,7 @@ async function login(req, res) {
 
         res.cookie("access_token", token, {
             httpOnly: true,
+            signed: true,
         });
 
         res.status(200).send(user);
