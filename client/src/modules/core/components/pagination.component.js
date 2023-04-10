@@ -3,13 +3,13 @@ import _ from "lodash";
 const Pagination = ({ data, limit, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(data.length / limit);
   const pages = _.range(1, totalPages + 1);
-  const nextMaxPage = currentPage + 3;
-  const prevMaxPage = currentPage - 4;
+
 
   const handlePageChange = (page) => {
     if (page < 1) return;
     if (page > totalPages) return;
     setCurrentPage(page);
+    
   };
 
   return (
@@ -20,34 +20,23 @@ const Pagination = ({ data, limit, currentPage, setCurrentPage }) => {
           onClick={() => handlePageChange(currentPage - 1)}
           style={{ cursor: "pointer" }}
         >
-          <span className="page-link">Previous</span>
+         <span className="page-link"> {`<`} </span>
         </li>
 
-        {pages.map((page, index) => {
-          if (page < nextMaxPage && index > prevMaxPage) {
-            return (
-              <li
-                key={`pagination-${index}`}
-                className={
-                  page === currentPage ? "page-item active" : "page-item"
-                }
-                onClick={() => handlePageChange(page)}
-              >
-                <span className="page-link">{page}</span>
-              </li>
-            );
-          } else {
-            return <li>.</li>;
-          }
-        })}
+        {
+        
+          <span className='mx-4'> {(currentPage * limit) - (limit - 1)} to {currentPage * limit} out of  {data.length}</span>
+        
+        }
 
         <li
           onClick={() => handlePageChange(currentPage + 1)}
           className={
             currentPage === totalPages ? "page-item disabled" : "page-item"
           }
+          style={{ cursor: "pointer" }}
         >
-          <span className="page-link">Next</span>
+          <span className="page-link"> {`>`} </span>
         </li>
       </ul>
     </nav>
