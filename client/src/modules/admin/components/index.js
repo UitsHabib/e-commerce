@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getAdmins } from '../admin.actions';
 import Table from '../../core/components/table/table.component';
-import AdminCreate from './create';
-import AdminEdit from './edit';
-import AdminDelete from './delete';
+import AdminCreate from './admin-form.component';
+import AdminEdit from './admin-edit.component';
+import AdminDelete from './admin-remove.component';
 
 const AdminList = () => {
 
