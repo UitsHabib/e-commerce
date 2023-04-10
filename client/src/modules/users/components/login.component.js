@@ -103,10 +103,7 @@ function Login() {
                                 </div>
                             )}
 
-                            <button
-                                type="submit"
-                                className="form-control btn btn-primary"
-                            >
+                            <button type="submit" className="form-control btn btn-primary">
                                 Login
                             </button>
 
