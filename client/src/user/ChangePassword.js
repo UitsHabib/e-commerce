@@ -35,7 +35,7 @@ const ChangePassword = () => {
                                 return <Form
                                             className="row card p-3 col-md-4 d-flex flex-column  m-auto"
                                         >
-                                    <h3 className='text-center'> Change Password</h3>
+                                    <h3 className='text-center text-success'> Change Password</h3>
 
                                     <div className="form-group my-1 ">
                                         <Label className='form-label' htmlFor='email' text='Email' />
@@ -55,7 +55,7 @@ const ChangePassword = () => {
                                         <ErrorMessage name='confirm_password' component={InputError} />
                                     </div>
 
-                                    <div className="form-group text-center">
+                                    <div className="form-group text-center my-2">
                                         <Button
                                             type='submit'
                                             text='Submit'
