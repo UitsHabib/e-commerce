@@ -1,16 +1,12 @@
 {
     "cSpell.words": [
-<<<<<<< HEAD
-        "Formik"
-    ]
-}
-=======
         "charecters",
         "Ecommerce",
         "Formik",
+        "Fullnavbar",
+        "middlewares",
         "reduxjs",
         "toastify",
         "Topbar"
     ]
 }
->>>>>>> e288cea (resolve conflict)

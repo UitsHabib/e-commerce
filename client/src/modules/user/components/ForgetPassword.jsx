@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../common/button.component";
 import Label from "../common/label.component";
 import InputError from "../common/input_error.component";
-import { forgetPasswordValidationSchema } from "./user.schema";
+import { forgetPasswordValidationSchema } from "../user.schema";
 
 const ForgetPassword = () => {
     const initialValues = {

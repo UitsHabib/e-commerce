@@ -1,9 +1,8 @@
 import { combineReducers } from "redux";
-import userReducer from '../users/user.reducer';
-import adminReducer from '../admins/admin.reducer';
+import userReducer from "../user/user.reducer";
+import adminReducer from "../admin/admin.reducer";
 
 export default combineReducers({
     userReducer,
-    adminReducer
-
-})
+    adminReducer,
+});
