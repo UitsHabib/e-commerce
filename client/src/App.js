@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+<<<<<<< HEAD
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+=======
+>>>>>>> 056266a (added table)
 
 import Dashboard from "./common/dashboard.component";
 import Login from "./login/login.component";
@@ -11,6 +14,9 @@ import NewDashboard from "./NewDashboard";
 import AdminList from "./admin/Index";
 
 import ForgetPassword from "./user/ForgetPassword";
+import AdminList from "./admin/AdminList";
+import EditAdmin from "./admin/EditAdmin";
+import CreateAdmin from "./admin/CreateAdmin";
 
 function App() {
     return (
@@ -45,6 +51,9 @@ function App() {
 
                 <Route path="/change-password" element={<ChangePassword />} />
                 <Route path="/forget-password" element={<ForgetPassword />} />
+                <Route path="/create" element={<CreateAdmin />} />
+                <Route path="/admin-list" element={<AdminList />} />
+                <Route path="/edit/:id" element={<EditAdmin />} />
             </Routes>
         </>
     );

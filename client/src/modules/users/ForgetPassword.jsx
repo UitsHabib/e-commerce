@@ -25,7 +25,7 @@ const ForgetPassword = () => {
                     >
                         {(formik) => {
                             return (
-                                <Form name="signupForm" id="signupForm">
+                                <Form>
                                     <div>
                                         <Label
                                             className="form-label"

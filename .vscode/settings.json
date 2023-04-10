@@ -1,5 +1,13 @@
 {
     "cSpell.words": [
+<<<<<<< HEAD
         "Formik"
     ]
 }
+=======
+        "charecters",
+        "Formik",
+        "reduxjs"
+    ]
+}
+>>>>>>> e288cea (resolve conflict)

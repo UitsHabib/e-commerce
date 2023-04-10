@@ -8,5 +8,5 @@ export const changePasswordValidationSchema = object({
         .oneOf([ref("password"), null], "Password & Confirm Password must be matched"),
 });
 export const forgetPasswordValidationSchema = object({
-    email: string().email("Invalid email").required("Email is Required"),
+    email: string().email("This field must be valid email").required("Email is Required"),
 });
