@@ -12,8 +12,8 @@ async function init() {
         `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`
     );
     const User = require("./src/modules/user/user.model");
-    const Permission = require("./src/modules/permission/permission.model");
-    const ServicePermission = require("./src/modules/permission/service_permission.model");
+    const Permission = require("./src/modules/Permission/permission.model");
+    const ServicePermission = require("./src/modules/Permission/service_permission.model");
     const Service = require("./src/modules/service/service.model");
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
