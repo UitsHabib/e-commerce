@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { shopSignUpSchema } from "./signup.schema";
+import { shopSignUpSchema } from "../user.schema";
 import axios from "axios";
 
 function VendorSignUp() {
