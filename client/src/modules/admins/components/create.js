@@ -1,49 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Modal from 'react-bootstrap/Modal';
-
-import Button from '../common/button.component';
-import Label from '../common/label.component';
-import InputError from '../common/input_error.component';
-import { validationSchema } from './admin.schema';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAdmin, updateAdmin } from './admin.actions';
 import { toast } from 'react-toastify';
 
-const AdminEdit = ({ onShow, onHandleClose, id }) => {
+import InputError from '../../core/components/input_error.component';
+import { validationSchema } from '../admin.schema';
+import { useDispatch } from 'react-redux';
+import { getAdmins, storeAdmin } from './../admin.actions';
+import Button from '../../core/components/button.component';
+import Label from '../../core/components/label.component';
 
-    const admin = useSelector(state => state.adminReducer.admin);
+const AdminCreate = ({ onShow, onHandleClose }) => {
+
     const dispatch = useDispatch();
-    
-    useEffect(() => {
-        async function editAdmin() {
-            dispatch(getAdmin(id))
-        }
-        editAdmin();
-        
-    }, [id])
 
-    if(id !== admin.id ) return false;
+    useEffect(() => {
+
+        async function adminList() {
+            dispatch(getAdmins())
+        }
+        adminList();
+
+    }, [])
 
     const initialValues = {
-        first_name: admin.first_name,
-        last_name: admin.last_name,
-        username: admin.username,
-        email: admin.email,
-        password: admin.password,
-        confirm_password: admin.password
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        password: '',
+        confirm_password: ""
     }
-    
-    const onSubmit =  (values) => {
-        async function update(){
-            try{
-                dispatch(updateAdmin(values,id));
-                toast('Successfully updated')
-            }catch(err){
+
+    const onSubmit = (values) => {
+
+        async function store() {
+            try {
+                dispatch(storeAdmin(values))
+                toast('Admin Created!')
+            }
+            catch (err) {
                 toast.error('Something went wrong')
             }
         }
-        update();
+        store();
+
     }
 
     return (
@@ -61,15 +62,16 @@ const AdminEdit = ({ onShow, onHandleClose, id }) => {
                     >
                         {
                             (formik) => {
+
                                 return <Form
                                     className="row card p-3 d-flex flex-column  m-auto"
                                 >
-                                    <h4 className='text-center text-success'>Modify Admin Info</h4>
+                                    <h4 className='text-center text-success'> Create Admin</h4>
 
                                     <div className="form-group my-1 ">
                                         <Label className='form-label' htmlFor='first_name' text='First Name' />
                                         <Field type="text" className='form-control' name="first_name" />
-                                        <ErrorMessage name='first_name'  component={InputError} />
+                                        <ErrorMessage name='first_name' component={InputError} />
                                     </div>
 
                                     <div className="form-group my-1 ">
@@ -83,6 +85,7 @@ const AdminEdit = ({ onShow, onHandleClose, id }) => {
                                         <Field type="username" className='form-control' name="username" />
                                         <ErrorMessage name='username' component={InputError} />
                                     </div>
+
 
                                     <div className="form-group my-1 ">
                                         <Label className='form-label' htmlFor='email' text='Email' />
@@ -120,4 +123,4 @@ const AdminEdit = ({ onShow, onHandleClose, id }) => {
     )
 }
 
-export default AdminEdit
+export default AdminCreate

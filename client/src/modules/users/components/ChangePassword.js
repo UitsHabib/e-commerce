@@ -4,11 +4,11 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Button from '../common/button.component';
-import Label from '../common/label.component';
-import InputError from '../common/input_error.component';
-import { validationSchema } from './user.schema';
-import getUser from './user.actions';
+import Button from '../../core/components/button.component';
+import Label from '../../core/components/label.component';
+import InputError from '../../core/components/input_error.component';
+import { validationSchema } from '../user.schema';
+import getUser from '../user.actions';
 
 
 

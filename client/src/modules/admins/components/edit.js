@@ -1,50 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Modal from 'react-bootstrap/Modal';
+
+import Label from '../../core/components/label.component';
+import Button from '../../core/components/button.component';
+import InputError from '../../core/components/input_error.component';
+import { validationSchema } from '../admin.schema';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdmin, updateAdmin } from '../admin.actions';
 import { toast } from 'react-toastify';
 
-import Button from '../common/button.component';
-import Label from '../common/label.component';
-import InputError from '../common/input_error.component';
-import { validationSchema } from './admin.schema';
-import { useDispatch } from 'react-redux';
-import { getAdmins, storeAdmin } from './admin.actions';
+const AdminEdit = ({ onShow, onHandleClose, id }) => {
 
-const AdminCreate = ({ onShow, onHandleClose }) => {
-
+    const admin = useSelector(state => state.adminReducer.admin);
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
-
-        async function adminList() {
-            dispatch(getAdmins())
+        async function editAdmin() {
+            dispatch(getAdmin(id))
         }
-        adminList();
+        editAdmin();
+        
+    }, [id])
 
-    }, [])
+    if(id !== admin.id ) return false;
 
     const initialValues = {
-        first_name: '',
-        last_name: '',
-        username: '',
-        email: '',
-        password: '',
-        confirm_password: ""
+        first_name: admin.first_name,
+        last_name: admin.last_name,
+        username: admin.username,
+        email: admin.email,
+        password: admin.password,
+        confirm_password: admin.password
     }
-
-    const onSubmit = (values) => {
-
-        async function store() {
-            try {
-                dispatch(storeAdmin(values))
-                toast('Admin Created!')
-            }
-            catch (err) {
+    
+    const onSubmit =  (values) => {
+        async function update(){
+            try{
+                dispatch(updateAdmin(values,id));
+                toast('Successfully updated')
+            }catch(err){
                 toast.error('Something went wrong')
             }
         }
-        store();
-
+        update();
     }
 
     return (
@@ -62,16 +61,15 @@ const AdminCreate = ({ onShow, onHandleClose }) => {
                     >
                         {
                             (formik) => {
-
                                 return <Form
                                     className="row card p-3 d-flex flex-column  m-auto"
                                 >
-                                    <h4 className='text-center text-success'> Create Admin</h4>
+                                    <h4 className='text-center text-success'>Modify Admin Info</h4>
 
                                     <div className="form-group my-1 ">
                                         <Label className='form-label' htmlFor='first_name' text='First Name' />
                                         <Field type="text" className='form-control' name="first_name" />
-                                        <ErrorMessage name='first_name' component={InputError} />
+                                        <ErrorMessage name='first_name'  component={InputError} />
                                     </div>
 
                                     <div className="form-group my-1 ">
@@ -85,7 +83,6 @@ const AdminCreate = ({ onShow, onHandleClose }) => {
                                         <Field type="username" className='form-control' name="username" />
                                         <ErrorMessage name='username' component={InputError} />
                                     </div>
-
 
                                     <div className="form-group my-1 ">
                                         <Label className='form-label' htmlFor='email' text='Email' />
@@ -123,4 +120,4 @@ const AdminCreate = ({ onShow, onHandleClose }) => {
     )
 }
 
-export default AdminCreate
+export default AdminEdit

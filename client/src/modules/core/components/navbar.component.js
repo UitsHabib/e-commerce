@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Logout from "./logout.component";
+import Logout from "../../users/components/logout.component";
 
 function Fullnavbar({ user }) {
     return (
