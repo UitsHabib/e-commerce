@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import Pagination from "../common/pagination.component";
-import TableLimit from "../common/table-limit.component";
-import Table from "../common/table.component";
-import Header from "../common/header.component";
+import Pagination from "../core/components/pagination.component";
+import TableLimit from "../core/components/table/table-limit.component";
+import Table from "../core/components/table/table.component";
+import Header from "../core/components/header.component";
 import { getPermission } from "./permission.action";
 import { useSelector, useDispatch } from "react-redux";
 import PermissionCreate from "./permission.create";

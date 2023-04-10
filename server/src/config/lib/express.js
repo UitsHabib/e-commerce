@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const config = require("../index");
+const swagger = require("./swagger");
+const swaggerUi = require("swagger-ui-express");
 
 module.exports = function () {
     const app = express();
@@ -30,6 +32,12 @@ module.exports = function () {
     globalConfig.strategies.forEach(function (strategyPath) {
         require(path.resolve(strategyPath))();
     });
+
+    app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(swagger.specs, swagger.uiOptions)
+    );
 
     return app;
 };

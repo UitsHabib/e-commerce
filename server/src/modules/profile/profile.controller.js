@@ -9,7 +9,7 @@ const Service = require("../service/service.model");
 
 async function createProfile(req, res) {
     try {
-        const { name, description, permission_id } = req.body;
+        const { name, description } = req.body;
 
         const existProfile = await Profile.findOne({
             where: { name },
@@ -20,7 +20,6 @@ async function createProfile(req, res) {
         const profile = await Profile.create({
             name,
             description,
-            // permission_id: permission_id.join(","),
         });
         res.status(201).send(profile);
     } catch (err) {
@@ -81,7 +80,7 @@ async function getProfile(req, res) {
 
 async function updateProfile(req, res) {
     try {
-        const { profile_name, description, permission_ids } = req.body;
+        const { profile_name, description } = req.body;
         const { id } = req.params;
 
         const profile = await Profile.findOne({ where: { id } });
@@ -90,7 +89,7 @@ async function updateProfile(req, res) {
         const profileup = await profile.update({
             profile_name,
             description,
-            permission_ids: permission_ids.join(","),
+            // permission_ids: permission_ids.join(","),
         });
 
         res.status(200).send(profileup);
