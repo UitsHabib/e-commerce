@@ -11,6 +11,7 @@ async function init() {
     await sequelize.query(
         `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`
     );
+
     const User = require("./src/modules/user/user.model");
     const Permission = require("./src/modules/permission/permission.model");
     const ServicePermission = require("./src/modules/permission/service_permission.model");
@@ -37,21 +38,24 @@ async function init() {
         const profiles = [
             {
                 name: "System Admin",
-                description: "Noman",
+                description:
+                    "This is the default profile for System Admin created by System Admin.",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Customer",
-                description: "Noman",
+                description:
+                    "This is the default profile for customer created by System Admin",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Vendor",
-                description: "Noman",
+                description:
+                    "This is the defalut profile for vendor created by System Admin",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
@@ -81,23 +85,22 @@ async function init() {
     }
 
     function serviceSeeder(userId, callback) {
-        console.log("-----------------service seeder");
         const services = [
             {
                 name: "User Management",
-                description: "Noman",
+                description: "Service created by System Admin",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Service Management",
-                description: "Noman",
+                description: "Service created by System Admin",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Permission Management",
-                description: "Noman",
+                description: "Service created by System Admin",
                 created_by: userId,
                 updated_by: userId,
             },
@@ -108,7 +111,6 @@ async function init() {
                 returning: true,
                 ignoreDuplicates: false,
             }).then(() => {
-                console.log("-----------------service seed completed");
                 callback(null, userId);
             });
         });
@@ -118,21 +120,24 @@ async function init() {
         const permissions = [
             {
                 name: "System Admin Permissions",
-                description: "Noman",
+                description:
+                    "This is the default permission for System Admin created by System Admin",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Customer Permission",
-                description: "Admin can manage all services",
+                description:
+                    "This is the default permission for customer created by System Admin",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Vendor Permission",
-                description: "Admin can manage all services",
+                description:
+                    "This is the default permission for vendor created by System Admin",
                 type: "standard",
                 created_by: userId,
                 updated_by: userId,
