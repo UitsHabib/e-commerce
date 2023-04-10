@@ -81,7 +81,6 @@ async function init() {
     }
 
     function serviceSeeder(userId, callback) {
-        console.log("-----------------service seeder");
         const services = [
             {
                 name: "User Management",
@@ -108,7 +107,6 @@ async function init() {
                 returning: true,
                 ignoreDuplicates: false,
             }).then(() => {
-                console.log("-----------------service seed completed");
                 callback(null, userId);
             });
         });

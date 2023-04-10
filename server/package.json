@@ -1,15 +1,13 @@
 {
-    "name": "e-commerce",
+    "name": "E-Commerce",
+    "description": "Multivendor E-commerce website",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "author": "Mr Sahadat Hossen",
+    "packageManager": "yarn@3.4.1",
     "scripts": {
-        "start": "nodemon server",
+        "start": "nodemon server.js",
         "seed": "node seeder.js"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "async": "^3.2.4",
         "bcrypt": "^5.1.0",
