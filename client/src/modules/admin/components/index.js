@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAdmins } from '../admin.actions';
-import Table from '../../core/components/table.component';
+import Table from '../../core/components/table/table.component';
 import AdminCreate from './create';
 import AdminEdit from './edit';
 import AdminDelete from './delete';

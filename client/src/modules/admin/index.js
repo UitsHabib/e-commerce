@@ -1,7 +1,5 @@
 import AdminList from "./components";
 
-const AdminRoutes = {
+export   {
     AdminList
 }
-
-export default AdminRoutes;
