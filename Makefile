@@ -18,5 +18,7 @@ seed:
 
 startserver: 
 	cd server && npm start
+startclient:
+	cd client && pnpm start
 
-.PHONY: runmysql startmysql stopmysql seed dropdb startserver 
+.PHONY: runmysql startmysql stopmysql seed dropdb startserver startclient
