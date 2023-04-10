@@ -29,7 +29,7 @@ function Fullnavbar({ user }) {
                                     className="btn btn-outline-secondary bg-white border ms-n5"
                                     type="button"
                                 >
-                                    <i className="bi bi-search"></i>
+                                    <i class="bi bi-search"></i>
                                 </button>
                             </span>
                         </div>
@@ -38,7 +38,7 @@ function Fullnavbar({ user }) {
                         <Nav.Link>
                             Cart
                             <i className="bi bi-cart-fill">
-                                <span className="top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     9
                                 </span>
                             </i>
