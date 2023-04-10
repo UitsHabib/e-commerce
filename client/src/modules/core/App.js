@@ -46,10 +46,14 @@ function App() {
                     path="/permission/create"
                     element={<PermissionCreate />}
                 />
-
-                <Route index element={<Home />} />
-                <Route path="/change-password" element={<ChangePassword />} />
-                <Route path="/admins" element={<AdminList />} />
+                <Route path="/" element={<NewDashboard />}>
+                    <Route index element={<Home />} />
+                    <Route
+                        path="/change-password"
+                        element={<ChangePassword />}
+                    />
+                    <Route path="/admins" element={<AdminList />} />
+                </Route>
             </Routes>
         </>
     );
