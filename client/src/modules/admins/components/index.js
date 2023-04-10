@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAdmins } from './admin.actions';
-import Table from '../common/table.component';
+import { getAdmins } from '../admin.actions';
+import Table from '../../core/components/table.component';
 import AdminCreate from './create';
 import AdminEdit from './edit';
 import AdminDelete from './delete';
@@ -73,9 +73,10 @@ const AdminList = () => {
     ]
 
     return (
-        <div className="card shadow-md mb-4">
-            <div className="card-header py-3 d-flex justify-content-between">
-                <h6 className="m-0 font-weight-bold text-primary">Admin List</h6>
+        <div className="card shadow mb-1">
+            <div className="card-header  d-flex justify-content-between">
+                <div></div>
+                {/* <h6 className="m-0 font-weight-bold text-primary">Admin List</h6> */}
                 <button className='btn btn-sm btn-success' onClick={() => setAddShow(true)}>Add</button>
             </div>
             <div className="card-body">

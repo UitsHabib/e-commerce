@@ -1,9 +1,9 @@
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 
-import Button from '../common/button.component';
+import Button from '../../core/components/button.component';
 import { useDispatch } from 'react-redux';
-import { deleteAdmin } from './admin.actions';
+import { deleteAdmin } from '../admin.actions';
 
 const AdminDelete = ({ onShow, onHandleClose, id }) => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from './common/sidebar.component';
-import Topbar from './common/topbar.component';
+import Sidebar from './sidebar.component';
+import Topbar from './topbar.component';
 import { Outlet } from 'react-router-dom';
 
 const NewDashboard = () => {
