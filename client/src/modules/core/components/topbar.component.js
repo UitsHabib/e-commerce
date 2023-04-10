@@ -1,11 +1,38 @@
-import React from 'react'
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+
 
 const Topbar = () => {
+  const location = useLocation();
+  const urls = location.pathname.split('/');
+ 
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-      <ul className="navbar-nav ml-auto">
+      <Breadcrumb className='mx-3'>
+        {
+          location.pathname === '/' || urls.map((url, index) => {
+            if (!url) {
+              return <Breadcrumb.Item key={index}>
+                <Link to={'/'}>Home</Link>
+              </Breadcrumb.Item>
+            } else {
+              return <Breadcrumb.Item key={index}>
+                <Link to={`/${url}`} >
+                  {url}
+                </Link>
+              </Breadcrumb.Item>
+            }
+          })
 
+        }
+        {location.pathname === '/' && <Breadcrumb.Item>
+          <Link to={'/'}>Home</Link>
+        </Breadcrumb.Item>}
+      </Breadcrumb>
+      
+      <ul className="navbar-nav ml-auto">
         <div className="topbar-divider d-none d-sm-block"></div>
 
         <li className="nav-item dropdown no-arrow">
