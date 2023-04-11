@@ -1,0 +1,80 @@
+paths:
+    /services:
+        post:
+            tags:
+                - Service
+            summary: Service Create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: Sevice name must be unique .
+                                descriptions:
+                                    type: string
+                                    description: Service description.
+                            required:
+                                - name
+            responses:
+                "200":
+                    description: Service created successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    name:
+                                        type: string
+                                    description:
+                                        type: string
+                                    created_by:
+                                        type: string
+                                    updated_by:
+                                        type: string
+                                    created_at:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                "401":
+                    description: Unauthenticated user.
+                "500":
+                    description: Internal server error.
+        get:
+            tags:
+                - Service
+            summary: Service list
+            responses:
+                "200":
+                    description: Successfully get service list
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                        name:
+                                            type: string
+                                        description:
+                                            type: string
+                                        created_by:
+                                            type: string
+                                        updated_by:
+                                            type: string
+                                        created_at:
+                                            type: string
+                                        updated_at:
+                                            type: string
+                "401":
+                    description: Unauthenticated user.
+                "500":
+                    description: Internal server error.
+    
