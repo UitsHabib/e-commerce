@@ -13,12 +13,18 @@ function Login() {
 
     async function loginHandler(values) {
         try {
-            const res = await axios.post("http://localhost:3000/users/login", {
-                email: values.email,
-                password: values.password,
-            });
+            const res = await axios.post(
+                "http://localhost:3002/users/login",
+                {
+                    email: values.email,
+                    password: values.password,
+                },
+                {
+                    withCredentials: true,
+                }
+            );
+
             if (res.status === 200) {
-                localStorage.setItem("access_token", res.data);
                 setLogin({
                     ...login,
                     loggedInn: true,
@@ -27,7 +33,7 @@ function Login() {
         } catch (err) {
             setLogin({
                 ...login,
-                error: "Invalid credintials",
+                error: "Invalid credentials",
             });
         }
     }
