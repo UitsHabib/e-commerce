@@ -10,3 +10,22 @@ export default function getUser(){
         })
     }
 }
+
+export function getUsers(){
+    return {
+        type: Types.GET_USERS,
+        payload:axios({
+            method:'GET',
+            url:`http://localhost:3001/users`
+        })
+    }
+}
+export function deleteUser(id){
+    return {
+        type: Types.DELETE_USER,
+        payload:axios({
+            method:'DELETE',
+            url:`http://localhost:3001/users/${id}`
+        })
+    }
+}

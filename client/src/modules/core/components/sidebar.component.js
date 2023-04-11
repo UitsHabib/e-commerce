@@ -18,6 +18,10 @@ const Sidebar = () => {
                     <Link className="nav-link text-dark" to="/admins">
                         <span>Admin</span></Link>
                 </li>
+                <li className="nav-item active">
+                    <Link className="nav-link text-dark" to="/users">
+                        <span>User</span></Link>
+                </li>
                
 
             </ul>

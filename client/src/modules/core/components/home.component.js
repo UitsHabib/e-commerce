@@ -23,7 +23,7 @@ const Home = () => {
                 </Link>
             </div>
             <div className="col-xl-3 col-md-6 mb-4">
-                <Link to={`/admins`} style={{ textDecoration: "none" }}>
+                <Link to={`/users`} style={{ textDecoration: "none" }}>
                     <div className="card  h-100 py-2 text-dark">
                         <div className="card-body">
                             <div className="row no-gutters align-items-center">
