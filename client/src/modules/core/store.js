@@ -6,11 +6,11 @@ import reducers from "./reducers";
 const middlewares = [promise, logger];
 
 const store = configureStore({
-  reducer: reducers,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(middlewares),
+    reducer: reducers,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat(middlewares),
 });
 
 export default store;

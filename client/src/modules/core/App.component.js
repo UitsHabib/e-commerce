@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 
-import Home from "./components/Home";
-import NewDashboard from "./components/new-dashboard.component";
+import "react-toastify/dist/ReactToastify.css";
+
+import { NewDashboard, Home } from "./index";
 import { AdminList } from "../admin";
-import { Login, ChangePassword } from '../user';
+import { Login, ChangePassword } from "../user";
 
 function App() {
     return (
@@ -25,14 +25,14 @@ function App() {
             />
 
             <Routes>
-
                 <Route path="/login" element={<Login />} />
-                <Route path='/' element={<NewDashboard />} >
-
+                <Route path="/" element={<NewDashboard />}>
                     <Route index element={<Home />} />
-                    <Route path='/change-password' element={<ChangePassword />} />
-                    <Route path='/admins' element={<AdminList />} />
-
+                    <Route
+                        path="/change-password"
+                        element={<ChangePassword />}
+                    />
+                    <Route path="/admins" element={<AdminList />} />
                 </Route>
             </Routes>
         </>
