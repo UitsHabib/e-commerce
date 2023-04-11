@@ -63,10 +63,6 @@ const UserList = () => {
 
     return (
         <div className="card shadow mb-1">
-            <div className="card-header  d-flex justify-content-between">
-                <div></div>
-                <button className="btn btn-sm btn-success">Add</button>
-            </div>
             <div className="card-body">
                 <div className="table-responsive">
                     <Table
