@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./user.model");
+const { send } = require("../../config/lib/email-sevice/email.service");
 
 async function createUser(req, res) {
     try {
@@ -9,6 +10,9 @@ async function createUser(req, res) {
         const existUser = await User.findOne({
             where: { email },
         });
+
+        console.log(existUser);
+
         if (existUser) return res.status(400).send("Already registered");
 
         const user = await User.create({
@@ -17,6 +21,14 @@ async function createUser(req, res) {
             email,
             password,
         });
+
+        const options = {
+            to: email,
+            subject: "Greetings",
+        };
+
+        await send(options, "user-creation");
+
         res.status(201).send(user);
     } catch (err) {
         console.log(err);
@@ -70,6 +82,7 @@ async function updateUser(req, res) {
 function getUser(req, res) {
     res.status(200).send(req.user);
 }
+
 function logout(req, res) {
     res.status(200).send(req.user);
 }
