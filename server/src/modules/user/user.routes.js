@@ -16,8 +16,8 @@ module.exports = (app) => {
         .post(validate(createUserSchema), createUser)
         .get(AuthStrategy, getUsers)
         .patch(AuthStrategy, validate(updateUserSchema), updateUser);
-    app.route("/users/logout").post(logout);
+    app.route("/users/logout").post(AuthStrategy, logout);
 
-    app.route("/users/:id").get(getUser).delete(deleteUser);
+    app.route("/users/:id").get(getUser).delete(AuthStrategy, deleteUser);
     app.route("/users/login").post(login);
 };
