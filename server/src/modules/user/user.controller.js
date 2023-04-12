@@ -7,6 +7,8 @@ async function createUser(req, res) {
     try {
         const { firstName, lastName, profile_id, email, password } = req.body;
 
+        console.log(req.body);
+
         const existUser = await User.findOne({
             where: { email },
         });

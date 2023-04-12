@@ -6,7 +6,7 @@ const {
     getUser,
     login,
     logout,
-} = require("./user.controllers");
+} = require("./user.controller");
 const validate = require("../core/middlewires/validate");
 const { createUserSchema, updateUserSchema } = require("./user.schema");
 const AuthStrategy = require("./user-authentication.middleware");
