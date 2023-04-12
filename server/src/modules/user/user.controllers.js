@@ -5,19 +5,18 @@ const { send } = require("../../config/lib/email-sevice/email.service");
 
 async function createUser(req, res) {
     try {
-        const { firstName, lastName, email, password } = req.body;
+        const { firstName, lastName, profile_id, email, password } = req.body;
 
         const existUser = await User.findOne({
             where: { email },
         });
-
-        console.log(existUser);
 
         if (existUser) return res.status(400).send("Already registered");
 
         const user = await User.create({
             firstName,
             lastName,
+            profile_id,
             email,
             password,
         });
@@ -34,57 +33,6 @@ async function createUser(req, res) {
         console.log(err);
         res.status(500).send("Internal server error");
     }
-}
-
-async function getUsers(req, res) {
-    try {
-        const users = await User.findAll({
-            attributes: { exclude: ["password"] },
-        });
-        res.status(200).send(users);
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Internal server error");
-    }
-}
-
-function deleteUser(req, res) {}
-
-async function updateUser(req, res) {
-    try {
-        const { firstName, lastName } = req.body;
-        const email = req.user.email;
-
-        const user = await User.findOne({
-            where: { email },
-        });
-
-        if (!user) return res.status(404).send("User not found");
-
-        await User.update(
-            {
-                firstName,
-                lastName,
-            },
-            { where: { email } }
-        );
-
-        const updatedUser = await User.findOne({
-            where: { email },
-        });
-        res.status(200).send(updatedUser);
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Internal server error");
-    }
-}
-
-function getUser(req, res) {
-    res.status(200).send(req.user);
-}
-
-function logout(req, res) {
-    res.status(200).send(req.user);
 }
 
 async function login(req, res) {
@@ -114,6 +62,91 @@ async function login(req, res) {
             httpOnly: true,
             signed: true,
         });
+
+        res.status(200).send(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
+}
+
+async function logout(req, res) {
+    try {
+        // Clear the authentication token cookie
+        res.clearCookie("access_token");
+
+        res.status(200).send("Logout successful");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
+}
+
+async function getUsers(req, res) {
+    try {
+        const users = await User.findAll({
+            attributes: { exclude: ["password"] },
+        });
+        res.status(200).send(users);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
+}
+
+async function getUser(req, res) {
+    const userId = req.params.id;
+
+    const user = await User.findOne({
+        where: { id: userId },
+        attributes: { exclude: ["password"] },
+    });
+
+    if (!user) return res.status(404).send("User not found");
+
+    res.send(user);
+}
+
+async function updateUser(req, res) {
+    try {
+        const { firstName, lastName } = req.body;
+        const email = req.user.email;
+
+        const user = await User.findOne({
+            where: { email },
+        });
+
+        if (!user) return res.status(404).send("User not found");
+
+        await User.update(
+            {
+                firstName,
+                lastName,
+            },
+            { where: { email } }
+        );
+
+        const updatedUser = await User.findOne({
+            where: { email },
+            attributes: { exclude: ["password"] },
+        });
+
+        res.status(200).send(updatedUser);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
+}
+
+async function deleteUser(req, res) {
+    try {
+        const { id } = req.params;
+        console.log(id);
+
+        const user = await User.findOne({ where: { id } });
+        if (!user) return res.status(404).send("User not found");
+
+        await user.destroy();
 
         res.status(200).send(user);
     } catch (err) {
