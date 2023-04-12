@@ -1,9 +1,9 @@
 paths:
-    /profiles:
+    /permission:
         post:
             tags:
-                - Profile
-            summary: Profile Create
+                - Permission
+            summary: Permission Create
             requestBody:
                 required: true
                 content:
@@ -13,18 +13,18 @@ paths:
                             properties:
                                 name:
                                     type: string
-                                    description: name of the Profile.
-                                    example: Vendor Profile
+                                    description: name of the permission.
+                                    example: fgsgf
                                 description:
                                     type: string
-                                    description: description of the Profile.
+                                    description: description of the permission.
                                     example: capriofdgfgfg
                             required:
                                 - name
                                 - description
             responses:
                 "200":
-                    description: Successfully created the Profile
+                    description: Successfully created the permission
                     content:
                         application/json:
                             schema:
@@ -49,11 +49,11 @@ paths:
 
         get:
             tags:
-                - Profile
-            summary: Profile list
+                - Permission
+            summary: Permission list
             responses:
                 "200":
-                    description: Successfully show the Profiles
+                    description: Successfully show the Permissions
                     content:
                         application/json:
                             schema:
@@ -76,15 +76,15 @@ paths:
                 "500":
                     description: Internal server error.
 
-    /profile/{id}:
+    /permission/{id}:
         patch:
             tags:
-                - Profile
-            summary: Profile update
+                - Permission
+            summary: Permission update
             parameters:
                 - in: path
                   name: id
-                  description: ID of the Profile to be updated.
+                  description: ID of the Permission to be updated.
                   required: true
                   schema:
                       type: string
@@ -98,18 +98,18 @@ paths:
                             properties:
                                 name:
                                     type: string
-                                    description: name of the Profile.
+                                    description: name of the permission.
                                     example: fgsgf
                                 description:
                                     type: string
-                                    description: description of the Profile.
+                                    description: description of the permission.
                                     example: capriofdgfgfg
                             required:
                                 - name
                                 - description
             responses:
                 "200":
-                    description: Successfully updated the Profile
+                    description: Successfully updated the permission
                     content:
                         application/json:
                             schema:
@@ -128,25 +128,25 @@ paths:
                                         updated_at:
                                             type: string
                 "404":
-                    description: Profile not found.
+                    description: Permission not found.
                 "500":
                     description: Internal server error.
 
         get:
             tags:
-                - Profile
-            summary: get a Profile
+                - Permission
+            summary: get a Permission
             parameters:
                 - in: path
                   name: id
-                  description: ID of the Profile to be get.
+                  description: ID of the Permission to be get.
                   required: true
                   schema:
                       type: string
                       example: 123
             responses:
                 "200":
-                    description: Profile get successfully
+                    description: Permission get successfully
                     content:
                         application/json:
                             schema:
@@ -163,25 +163,25 @@ paths:
                                     updated_at:
                                         type: string
                 "404":
-                    description: Profile not found.
+                    description: Permission not found.
                 "500":
                     description: Internal server error.
 
         delete:
             tags:
-                - Profile
-            summary: Delete Profile
+                - Permission
+            summary: Delete Permission
             parameters:
                 - in: path
                   name: id
-                  description: ID of the Profile to be deleted.
+                  description: ID of the Permission to be deleted.
                   required: true
                   schema:
                       type: string
                       example: 123
             responses:
                 "200":
-                    description: Profile deleted successfully
+                    description: Permission deleted successfully
                     content:
                         application/json:
                             schema:
@@ -198,6 +198,6 @@ paths:
                                     updated_at:
                                         type: string
                 "404":
-                    description: Profile not found.
+                    description: Permission not found.
                 "500":
                     description: Internal server error.

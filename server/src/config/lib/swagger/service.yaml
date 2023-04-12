@@ -1,0 +1,66 @@
+paths:
+    /services:
+        get:
+            tags:
+                - Service
+            summary: Service list
+            responses:
+                "200":
+                    description: Successfully show the Services
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                        name:
+                                            type: string
+                                        description:
+                                            type: string
+                                        created_at:
+                                            type: string
+                                        updated_at:
+                                            type: string
+                "401":
+                    description: Unathenticate User.
+                "500":
+                    description: Internal server error.
+
+    /services/{id}:
+        get:
+            tags:
+                - Service
+            summary: get a service
+            parameters:
+                - in: path
+                  name: id
+                  description: ID of the service to be get.
+                  required: true
+                  schema:
+                      type: string
+                      example: 123
+            responses:
+                "200":
+                    description: Service get successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    name:
+                                        type: string
+                                    description:
+                                        type: string
+                                    created_at:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                "404":
+                    description: User not found.
+                "500":
+                    description: Internal server error.
