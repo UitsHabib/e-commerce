@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Fullnavbar from "./navbar.component";
+import Fullnavbar from "../../core/components/navbar.component";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const token = localStorage.getItem("access_token");
