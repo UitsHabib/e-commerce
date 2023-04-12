@@ -5,21 +5,18 @@ const Service = require("../service/service.model");
 // Create permission
 async function createPermission(req, res) {
     try {
-        const { permissionName, services } = req.body;
-        const created_by = req.user.id;
+        const { name, description } = req.body;
 
         const existPermission = await Permission.findOne({
-            where: { permissionName },
+            where: { name },
         });
 
         if (existPermission) return res.status(400).send("Already exist");
 
-        const servicesJson = JSON.stringify(services); //use JSON.parse() while parsing
-
         const permission = await Permission.create({
-            permissionName,
-            services: servicesJson,
-            created_by,
+            name,
+            description,
+            created_by: req.user.id,
         });
         res.status(201).send(permission);
     } catch (err) {
@@ -31,20 +28,7 @@ async function createPermission(req, res) {
 // Get all permissions
 async function getPermissions(req, res) {
     try {
-        const permissions = await Permission.findAll({
-            include: [
-                {
-                    model: ServicePermission,
-                    as: "servicePermissions",
-                    include: [
-                        {
-                            model: Service,
-                            as: "service",
-                        },
-                    ],
-                },
-            ],
-        });
+        const permissions = await Permission.findAll({});
 
         res.status(200).send(permissions);
     } catch (err) {
@@ -74,8 +58,7 @@ async function getPermission(req, res) {
 // Update a permission
 async function updatePermission(req, res) {
     try {
-        const { permissionName, services } = req.body;
-        const Updated_by = req.user.lastName;
+        const { name, description } = req.body;
         const permission_id = req.params.id;
 
         const permission = await Permission.findOne({
@@ -84,13 +67,11 @@ async function updatePermission(req, res) {
 
         if (!permission) return res.status(404).send("Permission not found");
 
-        const servicesJson = JSON.stringify(services); //use JSON.parse() while parsing
-
         await Permission.update(
             {
-                permissionName,
-                services: servicesJson,
-                updated_by: Updated_by,
+                name,
+                description,
+                updated_by: req.user.id,
             },
             { where: { id: permission_id } }
         );
@@ -117,7 +98,7 @@ async function deletePermission(req, res) {
         if (!permission) return res.status(404).send("Permission not found");
         await permission.destroy();
 
-        res.status(200).send(await Permission.findAll());
+        res.status(200).send(permission);
     } catch (err) {
         console.log(err);
         res.status(500).send("Internal server error");
