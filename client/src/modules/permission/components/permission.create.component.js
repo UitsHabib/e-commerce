@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { permissionCreateSchema } from "./permission.schema";
+import { permissionCreateSchema } from "../permission.schema";
 
 const onSubmit = async (values) => {
     console.log("Valuesssssssssss", values);
