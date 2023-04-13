@@ -25,6 +25,7 @@ function Login() {
             );
 
             if (res.status === 200) {
+                localStorage.setItem("access_token", res.data.token);
                 setLogin({
                     ...login,
                     loggedInn: true,
