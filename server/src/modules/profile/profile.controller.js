@@ -14,12 +14,12 @@ async function createProfile(req, res) {
         const existProfile = await Profile.findOne({
             where: { name },
         });
-        if (existProfile)
-            return res.status(400).send("Already created this profile");
+        if (existProfile) return res.status(400).send("Already exist");
 
         const profile = await Profile.create({
             name,
             description,
+            created_by: req.user.id,
         });
         res.status(201).send(profile);
     } catch (err) {
@@ -80,16 +80,16 @@ async function getProfile(req, res) {
 
 async function updateProfile(req, res) {
     try {
-        const { profile_name, description } = req.body;
+        const { name, description } = req.body;
         const { id } = req.params;
 
         const profile = await Profile.findOne({ where: { id } });
         if (!profile) return res.status(404).send("Profile not found");
 
         const profileup = await profile.update({
-            profile_name,
+            name,
             description,
-            // permission_ids: permission_ids.join(","),
+            updated_by: req.user.id,
         });
 
         res.status(200).send(profileup);
