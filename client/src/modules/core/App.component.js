@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { NewDashboard, Home } from "./index";
 import { AdminList } from "../admin";
+import { ServiceList } from "../service";
 import { Login, ChangePassword, Dashboard } from "../user";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                         element={<ChangePassword />}
                     />
                     <Route path="/admins" element={<AdminList />} />
+                    <Route path="/service" element={<ServiceList />} />
                 </Route>
             </Routes>
         </>

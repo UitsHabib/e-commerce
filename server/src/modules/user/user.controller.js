@@ -25,7 +25,7 @@ async function createUser(req, res) {
 
         const options = {
             to: email,
-            subject: "Greetings",
+            subject: "User Created",
         };
 
         await send(options, "user-creation");

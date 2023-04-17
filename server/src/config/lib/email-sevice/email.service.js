@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const EmailFormat = require("./email.model");
 
 const transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
@@ -14,9 +15,13 @@ const transporter = nodemailer.createTransport({
 async function send(options, subject) {
     try {
         options.from = `"E-Commerce" <${process.env.EMAIL}>`;
-        //todo
-        //get html from templates database table with subject
-        //options.html = dbhtml
+
+        const htmldata = await EmailFormat.findOne({
+            where: { subject },
+        });
+
+        options.html = htmldata.subject;
+
         const info = await transporter.sendMail(options);
         console.log({
             message: "Mail sent",

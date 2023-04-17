@@ -18,6 +18,7 @@ async function init() {
     const Service = require("./src/modules/service/service.model");
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
+    const EmailFormat = require("./src/config/lib/email-sevice/email.model");
 
     await sequelize.sync();
 
@@ -31,6 +32,28 @@ async function init() {
             },
         }).then((users) => {
             callback(null, users[0].id);
+        });
+    }
+
+    function EmailFormatSeeder(userId, callback) {
+        const emailFormates = [
+            {
+                subject: "user-creation",
+                description: "<h3>Thank you for creating an account.</h3>",
+            },
+            {
+                subject: "order-confirmation",
+                description: "<h3>Your order confirmed successfully.</h3>",
+            },
+        ];
+
+        EmailFormat.destroy({ truncate: { cascade: true } }).then(() => {
+            EmailFormat.bulkCreate(emailFormates, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
         });
     }
 
@@ -243,6 +266,7 @@ async function init() {
     async.waterfall(
         [
             userSeeder,
+            EmailFormatSeeder,
             profileSeeder,
             userUpdateSeeder,
             serviceSeeder,
