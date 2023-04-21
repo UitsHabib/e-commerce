@@ -23,7 +23,7 @@ async function init() {
 
     function userSeeder(callback) {
         User.findOrCreate({
-            where: { email: "admin@commerce.com" },
+            where: { email: "admin@ecommerce.com" },
             defaults: {
                 firstName: "System",
                 lastName: "Admin",

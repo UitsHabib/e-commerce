@@ -168,6 +168,35 @@ async function findUser(email) {
     }
 }
 
+async function profilePhotoUpload(req, res){
+    try {
+        const id = req.user.id;
+
+        const user = await User.findOne({
+            where: { id },
+        });
+
+        if (!user) return res.status(404).send("User not found");
+
+        await User.update(
+            {
+                avatar: req.file.filename,
+            },
+            { where: { id } }
+        );
+
+        const updatedUser = await User.findOne({
+            where: { id },
+            attributes: { exclude: ["password"] },
+        });
+
+        res.status(200).send(updatedUser);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Internal server error");
+    }
+}
+
 module.exports.createUser = createUser;
 module.exports.getUsers = getUsers;
 module.exports.deleteUser = deleteUser;
@@ -176,3 +205,4 @@ module.exports.getUser = getUser;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.findUser = findUser;
+module.exports.profilePhotoUpload = profilePhotoUpload;
