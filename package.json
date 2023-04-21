@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "nodemailer": "^6.9.1"
+    "nodemon": "^2.0.22"
   }
 }
