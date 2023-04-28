@@ -18,6 +18,7 @@ async function init() {
     const Service = require("./src/modules/service/service.model");
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
+    const Category = require("./src/modules/category/category.model");
 
     await sequelize.sync();
 
@@ -240,6 +241,38 @@ async function init() {
         });
     }
 
+    function categorySeeder(userId, callback) {
+        const categories = [
+            {
+                name: "Men's Fashion",
+                description:"T-Shirt, Polo Shirt, Pants",
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Women's Fashion",
+                description:"Sharee, Lehenga, Scart etc",
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Electronics",
+                description:"TV, Blender, Mobile etc",
+                created_by: userId,
+                updated_by: userId,
+            },
+        ];
+
+        Category.destroy({ truncate: { cascade: true } }).then(() => {
+            Category.bulkCreate(categories, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
+        });
+    }
+
     async.waterfall(
         [
             userSeeder,
@@ -249,6 +282,7 @@ async function init() {
             permissionSeeder,
             permissionServiceSeeder,
             profilePermissionSeeder,
+            categorySeeder,
         ],
         (err) => {
             if (err) console.error(err);
