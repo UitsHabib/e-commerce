@@ -38,9 +38,6 @@ module.exports = function () {
         swaggerUi.serve,
         swaggerUi.setup(swagger.specs, swagger.uiOptions)
     );
-
-    process.env.TZ = 'Asia/Dhaka'; // UTC +06:00
-    console.log(new Date().toString())
-
+    
     return app;
 };

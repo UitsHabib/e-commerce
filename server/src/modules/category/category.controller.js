@@ -22,6 +22,7 @@ async function createCategory(req, res){
         const category = await Category.create({
             name,
             description,
+            // image: (req.file.filename === undefined) ? '' : req.file.filename,
             created_by: req.user.id,
         });
 
