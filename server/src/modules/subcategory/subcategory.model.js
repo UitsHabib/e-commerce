@@ -1,15 +1,19 @@
 const sequelize = require('../../config/lib/sequelize');
-const Subcategory = require( '../subcategory/subcategory.model' );
+const Category = require( '../category/category.model' );
 const { DataTypes, UUID } = require('sequelize');
 
-const Category = sequelize.define(
-    'categories',
+const Subcategory = sequelize.define(
+    'subcategories',
     {
         id: {
             allowNull: false,
             primaryKey:true,
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4
+        },
+        category_id: {
+            allowNull: false,
+            type: DataTypes.STRING
         },
         name:{
             allowNull: false,
@@ -33,16 +37,16 @@ const Category = sequelize.define(
         }
     },
     {
-        tableName: 'categories',
+        tableName: 'subcategories',
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     }
 );
 
-// Category.hasMany(Subcategory, {
-//   foreignKey: "category_id",
-//   as: "subcategories",
+// Subcategory.belongsTo(Category, {
+//     foreignKey: 'category_id',
+//     as: 'category'
 // });
 
-module.exports = Category;
+module.exports = Subcategory;

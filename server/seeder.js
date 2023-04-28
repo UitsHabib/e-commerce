@@ -19,6 +19,7 @@ async function init() {
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
     const Category = require("./src/modules/category/category.model");
+    const Subategory = require("./src/modules/subcategory/subcategory.model");
 
     await sequelize.sync();
 
