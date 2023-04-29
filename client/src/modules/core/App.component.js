@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { NewDashboard, Home } from "./index";
 import { AdminList } from "../admin";
-import { Login, ChangePassword, Dashboard } from "../user";
+import { Login, ChangePassword, UserList } from "../user";
 
 function App() {
     return (
