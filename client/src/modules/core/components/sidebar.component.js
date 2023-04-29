@@ -31,6 +31,12 @@ const Sidebar = () => {
                         <span>User</span>
                     </Link>
                 </li>
+                <li className="nav-item active">
+                    <Link className="nav-link text-dark" to="/users">
+                        <span>User</span></Link>
+                </li>
+               
+
             </ul>
         </>
     );
