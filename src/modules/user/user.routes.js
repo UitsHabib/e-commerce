@@ -11,6 +11,7 @@ const {
     logout,
     requestResetPassword,
     handleResetPasswordRequest,
+    handleRefreshTokenRequest,
 } = require("./user.controller");
 const {
     registerUserSchema,
@@ -52,7 +53,8 @@ module.exports = function userRoutes(app) {
         handleResetPasswordRequest
     );
 
-    // app.route("/token").post(AuthStrategy, generateRefreshToken);
+    // Create a route to handle the refresh token request
+    app.route("/refresh-token").post(handleRefreshTokenRequest);
 
     app.route("/users").get(getUsers);
 

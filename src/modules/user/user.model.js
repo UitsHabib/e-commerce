@@ -86,4 +86,19 @@ User.prototype.isResetTokenValid = function (resetTokenExpiry) {
 
     return resetTokenExpiry.getTime() > Date.now(); // check if reset token expiry time has passed
 };
-module.exports = User;
+
+// Add a new model for storing refresh tokens
+const RefreshToken = sequelize.define("RefreshToken", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+});
+
+module.exports.User = User;
+module.exports.RefreshToken = RefreshToken;
