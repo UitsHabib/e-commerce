@@ -1,5 +1,5 @@
 import ChangePassword from "./components/change-password.component";
 import Login from "./components/login.component";
-import UserList from "./components";
+import Dashboard from "./components/dashboard.component";
 
-export { ChangePassword, Login,  UserList };
+export { ChangePassword, Login, Dashboard };

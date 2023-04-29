@@ -14,7 +14,7 @@ function Login() {
     async function loginHandler(values) {
         try {
             const res = await axios.post(
-                "http://localhost:3002/users/login",
+                "http://localhost:3000/users/login",
                 {
                     email: values.email,
                     password: values.password,
