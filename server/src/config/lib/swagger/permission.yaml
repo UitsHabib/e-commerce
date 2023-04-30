@@ -19,9 +19,14 @@ paths:
                                     type: string
                                     description: description of the permission.
                                     example: capriofdgfgfg
+                                serviceIDs:
+                                    type: array
+                                    description: give service ids
+                                    example: [12112, 264564]
                             required:
                                 - name
                                 - description
+                                - serviceIDs
             responses:
                 "200":
                     description: Successfully created the permission

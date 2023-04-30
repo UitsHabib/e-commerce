@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { NewDashboard, Home } from "./index";
 import { AdminList } from "../admin";
 import { Login, ChangePassword, Dashboard } from "../user";
+import PermissionList from "../permission/components/index";
 
 function App() {
     return (
@@ -35,6 +36,8 @@ function App() {
                     />
                     <Route path="/admins" element={<AdminList />} />
                 </Route>
+
+                <Route path="/permission" element={<PermissionList />} />
             </Routes>
         </>
     );

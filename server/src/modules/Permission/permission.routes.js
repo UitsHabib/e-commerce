@@ -14,7 +14,7 @@ const AuthStrategy = require("../user/user-authentication.middleware");
 
 module.exports = (app) => {
     app.route("/permission")
-        .post(AuthStrategy, validate(createPermissionSchema), createPermission)
+        .post(AuthStrategy, createPermission)
         .get(AuthStrategy, getPermissions);
 
     app.route("/permission/:id")

@@ -19,6 +19,10 @@ paths:
                                     type: string
                                     description: description of the Profile.
                                     example: capriofdgfgfg
+                                permissionIDs:
+                                    type: array
+                                    description: give permission ids
+                                    example: [12112, 264564]
                             required:
                                 - name
                                 - description
@@ -104,9 +108,14 @@ paths:
                                     type: string
                                     description: description of the Profile.
                                     example: capriofdgfgfg
+                                permissionIDs:
+                                    type: array
+                                    description: give permission ids
+                                    example: [12112, 264564]
                             required:
                                 - name
                                 - description
+                                - permissionIDs
             responses:
                 "200":
                     description: Successfully updated the Profile
