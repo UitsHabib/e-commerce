@@ -76,7 +76,7 @@ paths:
                                 email:
                                     type: string
                                     description: The email address of the user.
-                                    example: john.doe@example.com
+                                    example: admin@ecommerce.com
                                 password:
                                     type: string
                                     description: The password of the user.
@@ -326,3 +326,24 @@ paths:
                     description: User not found.
                 "500":
                     description: Internal server error.
+
+    /users/profile-photo-upload:
+        patch: 
+            tags:
+                - User
+            summary: User profile photo upload
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                        fileName:
+                            type: string
+                            format: binary
+            responses:
+                '200':
+                    description: User avatar uploaded successfully
+                '400':
+                    description: Invalid input provided
+                '500':
+                    description: Internal server error

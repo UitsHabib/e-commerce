@@ -38,6 +38,6 @@ module.exports = function () {
         swaggerUi.serve,
         swaggerUi.setup(swagger.specs, swagger.uiOptions)
     );
-
+    
     return app;
 };

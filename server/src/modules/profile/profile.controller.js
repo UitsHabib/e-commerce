@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Profile = require("./profile.model");
 const PermissionProfile = require("./permission_profile.model");
 const Permission = require("../Permission/permission.model");
-const ServicePermission = require("../permission/service_permission.model");
+const ServicePermission = require("../Permission/service_permission.model");
 const Service = require("../service/service.model");
 
 async function createProfile(req, res) {

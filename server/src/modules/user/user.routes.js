@@ -6,10 +6,13 @@ const {
     getUser,
     login,
     logout,
+    profilePhotoUpload,
 } = require("./user.controller");
 const validate = require("../core/middlewires/validate");
 const { createUserSchema, updateUserSchema } = require("./user.schema");
 const AuthStrategy = require("./user-authentication.middleware");
+const { profilePhoto } = require( "../../config/lib/multer" );
+
 
 module.exports = (app) => {
     app.route("/users")
@@ -20,4 +23,6 @@ module.exports = (app) => {
 
     app.route("/users/:id").get(getUser).delete(AuthStrategy, deleteUser);
     app.route("/users/login").post(login);
+
+    app.patch('/users/profile-photo-upload',AuthStrategy,  profilePhoto.single('avatar'), profilePhotoUpload);
 };

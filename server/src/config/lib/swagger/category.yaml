@@ -1,0 +1,201 @@
+paths:
+    /categories:
+        post:
+            tags:
+                - Category
+            summary: Category Create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: Category Name.
+                                    example: Home Appliances
+                                description:
+                                    type: string
+                                    description: Category description.
+                                    example: All kind of home appliances
+                            required:
+                                - name 
+                                - description
+            responses:
+                "201":
+                    description: Successfully created the category
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                        name:
+                                            type: string
+                                        description:
+                                            type: string
+                                        created_at:
+                                            type: string
+                                        updated_at:
+                                            type: string
+                "400":
+                    description: Already Exist.
+                "401":
+                    description: Unauthenticated user.
+                "500":
+                    description: Internal server error.
+
+        get:
+            tags:
+                - Category
+            summary: Category list
+            responses:
+                "200":
+                    description: Category retrived successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                        name:
+                                            type: string
+                                        description:
+                                            type: string
+                                        created_at:
+                                            type: string
+                                        updated_at:
+                                            type: string
+                "500":
+                    description: Internal server error.
+
+    /categories/{id}:
+        patch:
+            tags:
+                - Category
+            summary: Category update
+            parameters:
+                - in: path
+                  name: id
+                  description: Give the ID of the category you want to update
+                  required: true
+                  schema:
+                      type: string
+                      example: 123
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: name of the Category.
+                                    example: fgsgf
+                                description:
+                                    type: string
+                                    description: description of the Category.
+                                    example: T-shirt, Polo shirt, Jens etc
+                            required:
+                                - name
+                                - description
+            responses:
+                "200":
+                    description: Successfully updated the Category
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    name:
+                                        type: string
+                                    description:
+                                        type: string
+                                    created_at:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                "404":
+                    description: Category not found.
+                "500":
+                    description: Internal server error.
+
+        get:
+            tags:
+                - Category
+            summary: get a Category
+            parameters:
+                - in: path
+                  name: id
+                  description: ID of the Category to be get.
+                  required: true
+                  schema:
+                      type: string
+                      example: 123
+            responses:
+                "200":
+                    description: Category get successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    name:
+                                        type: string
+                                    description:
+                                        type: string
+                                    created_at:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                "404":
+                    description: Category not found.
+                "500":
+                    description: Internal server error.
+
+        delete:
+            tags:
+                - Category
+            summary: Delete Category
+            parameters:
+                - in: path
+                  name: id
+                  description: ID of the Category to be deleted.
+                  required: true
+                  schema:
+                      type: string
+                      example: 123
+            responses:
+                "200":
+                    description: Category deleted successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    name:
+                                        type: string
+                                    description:
+                                        type: string
+                                    created_at:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                "404":
+                    description: Category not found.
+                "500":
+                    description: Internal server error.
