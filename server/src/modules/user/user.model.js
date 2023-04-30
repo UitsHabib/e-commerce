@@ -38,6 +38,10 @@ const User = sequelize.define(
                 this.setDataValue("email", value.toLowerCase());
             },
         },
+        email_verified_at: {
+            allowNull: true,
+            type: DataTypes.DATE,
+        },
         password: {
             allowNull: false,
             type: DataTypes.STRING,
