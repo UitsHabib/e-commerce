@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { NewDashboard, Home } from "./index";
 import { AdminList } from "../admin";
-import { Login, ChangePassword, Dashboard } from "../user";
+import { Login, ChangePassword, Dashboard, UserList } from "../user";
 import PermissionList from "../permission/components/index";
 
 function App() {
@@ -30,11 +30,9 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/" element={<NewDashboard />}>
                     <Route index element={<Home />} />
-                    <Route
-                        path="/change-password"
-                        element={<ChangePassword />}
-                    />
+                    <Route path="/change-password" element={<ChangePassword />} />
                     <Route path="/admins" element={<AdminList />} />
+                    <Route path="/users" element={<UserList />} />
                 </Route>
 
                 <Route path="/permission" element={<PermissionList />} />
