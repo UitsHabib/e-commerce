@@ -14,11 +14,11 @@ paths:
                                 email:
                                     type: string
                                     description: The email address of the user.
-                                    example: john.doe@example.com
+                                    example: admin@ecommerce.com
                                 password:
                                     type: string
                                     description: The password of the user.
-                                    example: myPassword123
+                                    example: P@ssword123
                             required:
                                 - email
                                 - password

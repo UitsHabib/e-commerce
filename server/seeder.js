@@ -19,6 +19,8 @@ async function init() {
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
     const Category = require("./src/modules/category/category.model");
+    const Subategory = require("./src/modules/subcategory/subcategory.model");
+    const Vendor = require("./src/modules/vandor/vendor.model");
 
     await sequelize.sync();
 
@@ -273,6 +275,98 @@ async function init() {
         });
     }
 
+    function vendorSeeder(userId, callback) {
+        Profile.findOne({ where: { name: "Vendor" } }).then(
+            (vendorProfile) => {
+                console.log('-------',vendorProfile);
+                Vendor.create({
+                    name: "Test Vendor",
+                    store_name: "Test store",
+                    profile_id: vendorProfile.id,
+                    logo:"",
+                    phone:"01910922069",
+                    district:"Dhaka",
+                    thana:"Dhaka",
+                    address:"Road#6, Block#B, Banasree, Rampura, Dhaka",
+                    about_seller:"I am a seller created by super admin",
+                    username:"vendor",
+                    email:"vendor@ecommerce.com",
+                    password:"P@ssword123",
+                    status: 1,
+                    created_by: userId,
+                    updated_by: userId,
+                });
+
+                callback(null, userId);
+            }
+        );
+
+
+
+        // const vendors = [
+        //     {
+        //         name: "Yusuf Ali",
+        //         store_name: "Ittadi store",
+        //         profile_id:"",
+        //         logo:"",
+        //         phone:"",
+        //         district:"",
+        //         thana:"",
+        //         address:"",
+        //         about_seller:"",
+        //         username:"",
+        //         email:"",
+        //         password:"",
+        //         status: 1,
+        //         created_by: userId,
+        //         updated_by: userId,
+        //     },
+        //     {
+        //         name: "Yusuf Ali",
+        //         store_name: "Ittadi store",
+        //         profile_id:"",
+        //         logo:"",
+        //         phone:"",
+        //         district:"",
+        //         thana:"",
+        //         address:"",
+        //         about_seller:"",
+        //         username:"",
+        //         email:"",
+        //         password:"",
+        //         status: 1,
+        //         created_by: userId,
+        //         updated_by: userId,
+        //     },
+        //     {
+        //         name: "Yusuf Ali",
+        //         store_name: "Ittadi store",
+        //         profile_id:"",
+        //         logo:"",
+        //         phone:"",
+        //         district:"",
+        //         thana:"",
+        //         address:"",
+        //         about_seller:"",
+        //         username:"",
+        //         email:"",
+        //         password:"",
+        //         status: 1,
+        //         created_by: userId,
+        //         updated_by: userId,
+        //     },
+        // ];
+
+        // Vendor.destroy({ truncate: { cascade: true } }).then(() => {
+        //     Vendor.bulkCreate(vendors, {
+        //         returning: true,
+        //         ignoreDuplicates: false,
+        //     }).then(() => {
+        //         callback(null, userId);
+        //     });
+        // });
+    }
+
     async.waterfall(
         [
             userSeeder,
@@ -283,6 +377,7 @@ async function init() {
             permissionServiceSeeder,
             profilePermissionSeeder,
             categorySeeder,
+            vendorSeeder,
         ],
         (err) => {
             if (err) console.error(err);
