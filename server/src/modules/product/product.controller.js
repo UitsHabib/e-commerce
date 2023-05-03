@@ -7,7 +7,6 @@ async function createProduct(req, res) {
         product_code,
         name,
         description,
-        image,
         brand_id,
         color_id,
         size_id
@@ -18,13 +17,14 @@ async function createProduct(req, res) {
         product_code,
         name,
         description,
-        image,
+        images: req.fileName,
         brand_id,
         color_id,
         size_id,
         created_by: req.user.id, // assuming you have a user id available in the request
         updated_by: req.user.id
       });
+    //   console.log("fileName-----------",req.fileName);
   
       return res.status(201).json(product);
     } catch (error) {

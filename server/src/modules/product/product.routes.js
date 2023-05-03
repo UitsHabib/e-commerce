@@ -1,14 +1,12 @@
-const {
-    createProduct,
-    getAllProducts
-} = require("./product.controller");
+const {createProduct, getAllProducts,} = require("./product.controller");
 
-const productImages = require('../../config/lib/multer')
+const {uploadProductImages} = require('../../config/lib/multer')
 
-// const AuthStrategy = require("../user/user-authentication.middleware");
+
+const AuthStrategy = require("../user/user-authentication.middleware");
 
 module.exports = (app) => {
     app.route("/product")
-        .post(productImages,createProduct)
-        .get(getAllProducts);
+        .post(AuthStrategy,uploadProductImages.array('images',3), createProduct)
+        .get( AuthStrategy,getAllProducts);
 };
