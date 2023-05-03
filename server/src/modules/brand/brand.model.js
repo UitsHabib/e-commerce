@@ -1,8 +1,8 @@
 const sequelize = require('../../config/lib/sequelize');
-const { DataTypes, UUID } = require('sequelize');
+const { DataTypes, UUID, INTEGER } = require('sequelize');
 
-const Category = sequelize.define(
-    'categories',
+const Brand = sequelize.define(
+    'brands',
     {
         id: {
             allowNull: false,
@@ -14,13 +14,9 @@ const Category = sequelize.define(
             allowNull: false,
             type: DataTypes.STRING
         },
-        description: {
+        status: {
             allowNull: true,
-            type: DataTypes.STRING
-        },
-        image: {
-            allowNull: true,
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER
         },
         created_by: {
             allowNull: true,
@@ -30,13 +26,14 @@ const Category = sequelize.define(
             allowNull: true,
             type: DataTypes.UUID
         }
+        
     },
     {
-        tableName: 'categories',
+        tableName: 'brands',
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     }
 );
 
-module.exports = Category;
+module.exports = Brand;
