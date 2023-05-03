@@ -2,6 +2,7 @@ const path = require("path");
 const async = require("async");
 const { values } = require("lodash");
 
+
 async function init() {
     const config = require("./src/config");
     config.initEnvironmentVariables();
@@ -19,8 +20,13 @@ async function init() {
     const Profile = require("./src/modules/profile/profile.model");
     const PermissionProfile = require("./src/modules/profile/permission_profile.model");
     const Category = require("./src/modules/category/category.model");
-    const Subategory = require("./src/modules/subcategory/subcategory.model");
+    const Subcategory = require("./src/modules/subcategory/subcategory.model");
     const Vendor = require("./src/modules/vandor/vendor.model");
+    const Brand = require("./src/modules/brand/brand.model");
+    const Color = require("./src/modules/color/color.model");
+    const Size = require("./src/modules/size/size.model");
+    const Product = require("./src/modules/product/product.model");
+    
 
     await sequelize.sync();
 
@@ -275,6 +281,50 @@ async function init() {
         });
     }
 
+    function subcategorySeeder(userId, callback) {
+
+        Promise.all([
+            Category.findOne({ where: { name: "Men's Fashion" } }),
+            Category.findOne({ where: { name: "Women's Fashion"} }),
+        ]).then((values) => {
+            const [
+                mensFashionCategory,
+                womwnsFashionCategory,
+            ] = values;
+
+            const subcategories = [
+                {
+                    category_id: mensFashionCategory.id,
+                    name: "T-shirt",
+                    description: "Men t-shirt sub-category",
+                    image:"shirt.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+                {
+                    category_id: womwnsFashionCategory.id,
+                    name: "Sharee",
+                    description: "Women saree sub-category",
+                    image:"sharee.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+            ];
+
+            Subcategory.destroy({ truncate: { cascade: true } }).then(
+                () => {
+                    Subcategory.bulkCreate(subcategories, {
+                        returning: true,
+                        ignoreDuplicates: false,
+                    }).then(() => {
+                        callback(null, userId);
+                    });
+                }
+            );
+        });
+
+    }
+
     function vendorSeeder(userId, callback) {
         Profile.findOne({ where: { name: "Vendor" } }).then(
             (vendorProfile) => {
@@ -367,6 +417,160 @@ async function init() {
         // });
     }
 
+    function brandSeeder(userId, callback) {
+        const brands = [
+            {
+                name: "Easy",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Bay",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Bata",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+        ];
+
+        Brand.destroy({ truncate: { cascade: true } }).then(() => {
+            Brand.bulkCreate(brands, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
+        });
+    }
+
+    function colorSeeder(userId, callback) {
+        const colors = [
+            {
+                name: "Red",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Blue",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "Black",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+        ];
+
+        Color.destroy({ truncate: { cascade: true } }).then(() => {
+            Color.bulkCreate(colors, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
+        });
+    }
+
+    function sizeSeeder(userId, callback) {
+        const sizes = [
+            {
+                name: "40",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "41",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+            {
+                name: "42",
+                status: 1,
+                created_by: userId,
+                updated_by: userId,
+            },
+        ];
+
+        Size.destroy({ truncate: { cascade: true } }).then(() => {
+            Size.bulkCreate(sizes, {
+                returning: true,
+                ignoreDuplicates: false,
+            }).then(() => {
+                callback(null, userId);
+            });
+        });
+    }
+
+    function productSeeder(userId, callback) {
+
+        Promise.all([
+            Subcategory.findOne({ where: { name: "T-shirt" } }),
+            Subcategory.findOne({ where: { name: "Sharee"} }),
+            Brand.findOne({ where: { name: "Easy"} }),
+            Color.findOne({ where: { name: "Red"} }),
+            Size.findOne({ where: { name: "40"} }),
+        ]).then((values) => {
+            const [
+                tshirtSubcategory,
+                shareeSubcategory,
+                brand,
+                color,
+                size,
+            ] = values;
+
+            const products = [
+                {
+                    sub_cat_id: tshirtSubcategory.id,
+                    product_code: "4567",
+                    name: "casual",
+                    description: "Men casual t-shirt",
+                    image:"casualshirt.jpg",
+                    brand_id: brand.id,
+                    color_id: color.id,
+                    size_id: size.id,
+                    created_by: userId,
+                    updated_by: userId,
+                },
+                {
+                    sub_cat_id: shareeSubcategory.id,
+                    product_code: "4567",
+                    name: "jamdani",
+                    description: "women samdani sharee ",
+                    image:"jamdanisharee.jpg",
+                    brand_id: brand.id,
+                    color_id: color.id,
+                    size_id: size.id,
+                    created_by: userId,
+                    updated_by: userId,
+                },
+            ];
+
+            Product.destroy({ truncate: { cascade: true } }).then(
+                () => {
+                    Product.bulkCreate(products, {
+                        returning: true,
+                        ignoreDuplicates: false,
+                    }).then(() => {
+                        callback(null, userId);
+                    });
+                }
+            );
+        });
+
+    }
+
     async.waterfall(
         [
             userSeeder,
@@ -377,7 +581,12 @@ async function init() {
             permissionServiceSeeder,
             profilePermissionSeeder,
             categorySeeder,
+            subcategorySeeder,
             vendorSeeder,
+            brandSeeder,
+            colorSeeder,
+            sizeSeeder,
+            productSeeder,
         ],
         (err) => {
             if (err) console.error(err);

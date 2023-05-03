@@ -13,7 +13,7 @@ const Subcategory = sequelize.define(
         },
         category_id: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.UUID
         },
         name:{
             allowNull: false,
@@ -44,9 +44,9 @@ const Subcategory = sequelize.define(
     }
 );
 
-// Subcategory.belongsTo(Category, {
-//     foreignKey: 'category_id',
-//     as: 'category'
-// });
+Category.hasMany(Subcategory, {
+    as: "subcategories",
+    foreignKey: "category_id"
+});
 
 module.exports = Subcategory;
