@@ -69,22 +69,25 @@ const categoryImage = multer({
     } 
 });
 
-const productstorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, PRODUCT_IMAGE_PATH)
-    },
-    filename: (req, file, cb) => {
-        const fileExt = path.extname(file.originalname);
-        const fileName = file.originalname
-                        .replace(fileExt, '')
-                        .toLowerCase()
-                        .split(" ")
-                        .join("-") + "-" + Date.now();
-        cb(null, fileName + fileExt);
-        req.fileName = fileName;
-        // console.log("fileName-----------malter",req.fileName);
-    }
-})
+    const filenames = [];
+
+    const productstorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, PRODUCT_IMAGE_PATH)
+        },
+        filename: (req, file, cb) => {
+            const fileExt = path.extname(file.originalname);
+            const fileName = file.originalname
+                            .replace(fileExt, '')
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-") + "-" + Date.now();
+            cb(null, fileName + fileExt);
+
+            filenames.push(fileName);
+            req.ImagefileNames = filenames;
+        }
+    })
 
 const uploadProductImages = multer({ 
     storage: productstorage,
@@ -100,10 +103,9 @@ const uploadProductImages = multer({
             callback(null, true);
         }else{
             callback(new Error("Only .png, .jpg or .jpeg files are allowed!"));
-        }
-        
-    } 
-    
+        }      
+    }  
+     
 });
 
 module.exports.profilePhoto = profilePhoto;
