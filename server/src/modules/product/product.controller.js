@@ -15,6 +15,10 @@ async function createProduct(req, res) {
         color_id,
         size_id
       } = req.body;
+      const existingProduct = await Product.findOne({ where: { product_code } });
+        if (existingProduct) {
+            return res.status(400).send('Product with this code already exists.');
+        }
   
       const product = await Product.create({
         sub_cat_id,
@@ -42,10 +46,10 @@ async function createProduct(req, res) {
 
     await ProductImage.bulkCreate(productImages);
   
-      return res.status(201).json(product);
+      return res.status(201).send(product);
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: 'Failed to create product.' });
+      return res.status(500).send('Internal Server Error!');
     }
   }
 

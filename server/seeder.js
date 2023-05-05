@@ -257,18 +257,21 @@ async function init() {
             {
                 name: "Men's Fashion",
                 description:"T-Shirt, Polo Shirt, Pants",
+                image:"categoryImage1.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Women's Fashion",
                 description:"Sharee, Lehenga, Scart etc",
+                image:"categoryImage2.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Electronics",
                 description:"TV, Blender, Mobile etc",
+                image:"categoryImage3.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
