@@ -1,5 +1,5 @@
 const sequelize = require('../../config/lib/sequelize');
-const { DataTypes, UUID } = require('sequelize');
+const { DataTypes, UUID, FLOAT } = require('sequelize');
 const Subcategory = require('../../modules/subcategory/subcategory.model')
 const Color = require('../../modules/color/color.model');
 const Size = require('../../modules/size/size.model');
@@ -29,10 +29,6 @@ const Product = sequelize.define(
             allowNull: true,
             type: DataTypes.STRING
         },
-        images: {
-            allowNull: true,
-            type: DataTypes.STRING
-        },
         brand_id: {
             type: DataTypes.UUID
         },
@@ -41,6 +37,16 @@ const Product = sequelize.define(
         },
         size_id: {
             type: DataTypes.UUID
+        },
+        price: {
+            type: DataTypes.FLOAT
+        },
+        discount: {
+            type: DataTypes.FLOAT
+        },
+        status: {
+            allowNull: true,
+            type: DataTypes.INTEGER
         },
         created_by: {
             allowNull: true,

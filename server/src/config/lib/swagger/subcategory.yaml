@@ -7,7 +7,7 @@ paths:
             requestBody:
                 required: true
                 content:
-                    application/json:
+                  multipart/form-data:
                         schema:
                             type: object
                             properties:
@@ -23,6 +23,10 @@ paths:
                                     type: string
                                     description: Select option.
                                     example: 123
+                                image:
+                                    type: string
+                                    format: binary
+                                    description: Image file of the category.
                             required:
                                 - name 
                                 - description
@@ -44,6 +48,8 @@ paths:
                                         name:
                                             type: string
                                         description:
+                                            type: string
+                                        image:
                                             type: string
                                         created_at:
                                             type: string

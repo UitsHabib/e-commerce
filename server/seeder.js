@@ -3,6 +3,7 @@ const async = require("async");
 const { values } = require("lodash");
 
 
+
 async function init() {
     const config = require("./src/config");
     config.initEnvironmentVariables();
@@ -26,6 +27,8 @@ async function init() {
     const Color = require("./src/modules/color/color.model");
     const Size = require("./src/modules/size/size.model");
     const Product = require("./src/modules/product/product.model");
+    // const ProductImage = require("./src/modules/product/productImages/productImages.model");
+    const ProductImage = require("./src/modules/product/productImages/productImages.model")
     
 
     await sequelize.sync();
@@ -254,18 +257,21 @@ async function init() {
             {
                 name: "Men's Fashion",
                 description:"T-Shirt, Polo Shirt, Pants",
+                image:"categoryImage1.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Women's Fashion",
                 description:"Sharee, Lehenga, Scart etc",
+                image:"categoryImage2.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
             {
                 name: "Electronics",
                 description:"TV, Blender, Mobile etc",
+                image:"categoryImage3.jpg",
                 created_by: userId,
                 updated_by: userId,
             },
@@ -533,10 +539,9 @@ async function init() {
             const products = [
                 {
                     sub_cat_id: tshirtSubcategory.id,
-                    product_code: "4567",
+                    product_code: "1111",
                     name: "casual",
                     description: "Men casual t-shirt",
-                    images:"casualshirt.jpg",
                     brand_id: brand.id,
                     color_id: color.id,
                     size_id: size.id,
@@ -545,10 +550,9 @@ async function init() {
                 },
                 {
                     sub_cat_id: shareeSubcategory.id,
-                    product_code: "4567",
+                    product_code: "2222",
                     name: "jamdani",
                     description: "women samdani sharee ",
-                    images:"jamdanisharee.jpg",
                     brand_id: brand.id,
                     color_id: color.id,
                     size_id: size.id,
@@ -560,6 +564,58 @@ async function init() {
             Product.destroy({ truncate: { cascade: true } }).then(
                 () => {
                     Product.bulkCreate(products, {
+                        returning: true,
+                        ignoreDuplicates: false,
+                    }).then(() => {
+                        callback(null, userId);
+                    });
+                }
+            );
+        });
+
+    }
+
+    function productImageSeeder(userId, callback) {
+
+        Promise.all([
+            Product.findOne({ where: { product_code: "1111" } }),
+            Product.findOne({ where: { product_code: "2222" } }),
+        ]).then((values) => {
+            const [
+                productOne,
+                productTwo
+            ] = values;
+
+            const productImages = [
+                {
+                    product_id: productOne.id,
+                    image:"casualshirt1.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+                {
+                    product_id: productOne.id,
+                    image:"casualshirt2.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+                {
+                    product_id: productTwo.id,
+                    image:"jamdanisharee1.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+                {
+                    product_id: productTwo.id,
+                    image:"jamdanisharee2.jpg",
+                    created_by: userId,
+                    updated_by: userId,
+                },
+            ];
+
+            ProductImage.destroy({ truncate: { cascade: true } }).then(
+                () => {
+                    ProductImage.bulkCreate(productImages, {
                         returning: true,
                         ignoreDuplicates: false,
                     }).then(() => {
@@ -587,6 +643,7 @@ async function init() {
             colorSeeder,
             sizeSeeder,
             productSeeder,
+            productImageSeeder,
         ],
         (err) => {
             if (err) console.error(err);

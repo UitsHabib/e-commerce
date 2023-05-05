@@ -2,6 +2,7 @@ const multer  = require('multer');
 const path  = require('path');
 const AVATAR_PATH = 'uploads/avatar/';
 const CATEGORY_IMAGE_PATH = 'uploads/category/';
+const SUBCATEGORY_IMAGE_PATH = 'uploads/subcategory-images/'
 const PRODUCT_IMAGE_PATH = 'uploads/product-images/'
 
 const storage = multer.diskStorage({
@@ -47,7 +48,8 @@ const categoryImageStorage = multer.diskStorage({
                         .toLowerCase()
                         .split(" ")
                         .join("-") + "-" + Date.now();
-        cb(null, fileName + fileExt); 
+        cb(null, fileName + fileExt);
+        req.fileName = fileName;
     }
 })
 
@@ -69,9 +71,9 @@ const categoryImage = multer({
     } 
 });
 
-const productstorage = multer.diskStorage({
+const subcategoryImageStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, PRODUCT_IMAGE_PATH)
+        cb(null, SUBCATEGORY_IMAGE_PATH)
     },
     filename: (req, file, cb) => {
         const fileExt = path.extname(file.originalname);
@@ -82,9 +84,46 @@ const productstorage = multer.diskStorage({
                         .join("-") + "-" + Date.now();
         cb(null, fileName + fileExt);
         req.fileName = fileName;
-        // console.log("fileName-----------malter",req.fileName);
     }
 })
+
+const subcategoryImage = multer({ 
+    storage: subcategoryImageStorage,
+    limits: {
+        fileSize: 1000000, // 1MB
+    },
+    fileFilter: (req, file, callback) => {
+        if (
+            file.mimetype === "image/png" || 
+            file.mimetype === "image/jpg" || 
+            file.mimetype === "image/jpeg" 
+        ) {
+            callback(null, true);
+        }else{
+            callback(new Error("Only .png, .jpg or .jpeg files are allowed!"));
+        }
+    } 
+});
+
+    const filenames = [];
+
+    const productstorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, PRODUCT_IMAGE_PATH)
+        },
+        filename: (req, file, cb) => {
+            const fileExt = path.extname(file.originalname);
+            const fileName = file.originalname
+                            .replace(fileExt, '')
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-") + "-" + Date.now();
+            cb(null, fileName + fileExt);
+
+            filenames.push(fileName);
+            req.ImagefileNames = filenames;
+        }
+    })
 
 const uploadProductImages = multer({ 
     storage: productstorage,
@@ -100,12 +139,12 @@ const uploadProductImages = multer({
             callback(null, true);
         }else{
             callback(new Error("Only .png, .jpg or .jpeg files are allowed!"));
-        }
-        
-    } 
-    
+        }      
+    }  
+     
 });
 
 module.exports.profilePhoto = profilePhoto;
 module.exports.categoryImage = categoryImage;
+module.exports.subcategoryImage = subcategoryImage;
 module.exports.uploadProductImages = uploadProductImages;

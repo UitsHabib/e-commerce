@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const Profile = require("./profile.model");
 const PermissionProfile = require("./permission_profile.model");
 const Permission = require("../Permission/permission.model");

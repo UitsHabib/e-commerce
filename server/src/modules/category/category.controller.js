@@ -1,9 +1,31 @@
+const Product = require('../product/product.model');
+const ProductImage = require('../product/productImages/productImages.model');
+const Subcategory = require('../subcategory/subcategory.model');
 const Category = require( './category.model' );
 
 
 async function getCategories(req, res){
     try {
-        const categories = await Category.findAll();
+        const categories = await Category.findAll({
+            include: [
+                {
+                    model: Subcategory,
+                    as: "subcategories",
+                    include: [
+                        {
+                            model: Product,
+                            as: "products",
+                            include: [
+                                {
+                                    model: ProductImage,
+                                    as: "productImages",
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        });
 
         res.status(200).send(categories);
     } catch (err) {
@@ -22,7 +44,7 @@ async function createCategory(req, res){
         const category = await Category.create({
             name,
             description,
-            // image: (req.file.filename === undefined) ? '' : req.file.filename,
+            image: (req.file.filename === undefined) ? '' : req.file.filename,
             created_by: req.user.id,
         });
 

@@ -1,0 +1,483 @@
+paths:
+  /product:
+    post:
+      tags:
+        - Product
+      summary: Product Create
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                sub_cat_id:
+                  type: string
+                  description: sub category of the product.
+                  example: Men's t-shirt
+                product_code:
+                  type: string
+                  description: Product code of the product.
+                  example: 45612
+                name:
+                  type: string
+                  description: name of the Product.
+                  example: Product
+                description:
+                  type: string
+                  description: description of the Product.
+                  example: description
+                price:
+                  type: integer
+                  description: Price of the Product.
+                  example: 1000
+                discount:
+                  type: integer
+                  description: Discount of the Product.
+                  example: 10
+                brand_id:
+                  type: string
+                  description: Brand id of the Product.
+                  example: E124547e1
+                color_id:
+                  type: string
+                  description: Color id of the Product.
+                  example: E124547e1
+                size_id:
+                  type: string
+                  description: SIze id of the Product.
+                  example: E124547e1
+                status:
+                  type: integer
+                  description: Status of the Product.
+                  example: 1
+                images:
+                  type: array
+                  description: Image files of the product.
+                  items:
+                    type: string
+                    format: binary
+              encoding:
+                images:
+                  explode: true
+              
+      responses:
+        "201":
+          description: Successfully created the Product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the created product.
+                  sub_cat_id:
+                    type: string
+                    description: sub category of the product.
+                    example: Men's t-shirt
+                  product_code:
+                    type: string
+                    description: Product code of the product.
+                    example: 45612
+                  name:
+                    type: string
+                    description: name of the Product.
+                    example: Product
+                  description:
+                    type: string
+                    description: description of the Product.
+                    example: description
+                  price:
+                    type: integer
+                    description: Price of the Product.
+                    example: 1000
+                  discount:
+                    type: integer
+                    description: Discount of the Product.
+                    example: 10
+                  brand_id:
+                    type: string
+                    description: Brand id of the Product.
+                    example: E124547e1
+                  color_id:
+                    type: string
+                    description: Color id of the Product.
+                    example: E124547e1
+                  size_id:
+                    type: string
+                    description: SIze id of the Product.
+                    example: E124547e1
+                  status:
+                    type: integer
+                    description: Status of the Product.
+                    example: 1
+                  created_at:
+                    type: string
+                    description: Date and time when the product was created.
+                  updated_at:
+                    type: string
+                    description: Date and time when the product was last updated.
+        "400":
+          description: Product already exists.
+        "500":
+          description: Internal server error.
+
+
+    get:
+        tags:
+            - Product
+        summary: Product list
+        responses:
+            "200":
+                description: Successfully show the Products
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    id:
+                                      type: string
+                                      description: ID of the created product.
+                                    sub_cat_id:
+                                      type: string
+                                      description: sub category of the product.
+                                      example: Men's t-shirt
+                                    product_code:
+                                      type: string
+                                      description: Product code of the product.
+                                      example: 45612
+                                    name:
+                                      type: string
+                                      description: name of the Product.
+                                      example: Product
+                                    description:
+                                      type: string
+                                      description: description of the Product.
+                                      example: description
+                                    price:
+                                      type: integer
+                                      description: Price of the Product.
+                                      example: 1000
+                                    discount:
+                                      type: integer
+                                      description: Discount of the Product.
+                                      example: 10
+                                    brand_id:
+                                      type: string
+                                      description: Brand id of the Product.
+                                      example: E124547e1
+                                    color_id:
+                                      type: string
+                                      description: Color id of the Product.
+                                      example: E124547e1
+                                    size_id:
+                                      type: string
+                                      description: SIze id of the Product.
+                                      example: E124547e1
+                                    status:
+                                      type: integer
+                                      description: Status of the Product.
+                                      example: 1
+                                    created_at:
+                                      type: string
+                                      description: Date and time when the product was created.
+                                    updated_at:
+                                      type: string
+                                      description: Date and time when the product was last updated.
+                                    productImages:
+                                      type: string
+            "401":
+                description: Unathenticate User.
+            "500":
+                description: Internal server error.
+
+  /product/{id}:
+    patch:
+      tags:
+        - Product
+      summary: Product update
+      parameters:
+        - in: path
+          name: id
+          description: ID of the Product to be updated.
+          required: true
+          schema:
+            type: string
+            example: 123
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                sub_cat_id:
+                  type: string
+                  description: sub category of the product.
+                  example: Men's t-shirt
+                product_code:
+                  type: string
+                  description: Product code of the product.
+                  example: 45612
+                name:
+                  type: string
+                  description: name of the Product.
+                  example: Product
+                description:
+                  type: string
+                  description: description of the Product.
+                  example: description
+                price:
+                  type: integer
+                  description: Price of the Product.
+                  example: 1000
+                discount:
+                  type: integer
+                  description: Discount of the Product.
+                  example: 10
+                brand_id:
+                  type: string
+                  description: Brand id of the Product.
+                  example: E124547e1
+                color_id:
+                  type: string
+                  description: Color id of the Product.
+                  example: E124547e1
+                size_id:
+                  type: string
+                  description: SIze id of the Product.
+                  example: E124547e1
+                status:
+                  type: integer
+                  description: Status of the Product.
+                  example: 1
+                images:
+                  type: array
+                  description: Image files of the product.
+                  items:
+                    type: string
+                    format: binary
+              encoding:
+                images:
+                  explode: true
+              
+      responses:
+        "201":
+          description: Successfully updated the Product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the updated product.
+                  sub_cat_id:
+                    type: string
+                    description: sub category of the product.
+                    example: Men's t-shirt
+                  product_code:
+                    type: string
+                    description: Product code of the product.
+                    example: 45612
+                  name:
+                    type: string
+                    description: name of the Product.
+                    example: Product
+                  description:
+                    type: string
+                    description: description of the Product.
+                    example: description
+                  price:
+                    type: integer
+                    description: Price of the Product.
+                    example: 1000
+                  discount:
+                    type: integer
+                    description: Discount of the Product.
+                    example: 10
+                  brand_id:
+                    type: string
+                    description: Brand id of the Product.
+                    example: E124547e1
+                  color_id:
+                    type: string
+                    description: Color id of the Product.
+                    example: E124547e1
+                  size_id:
+                    type: string
+                    description: SIze id of the Product.
+                    example: E124547e1
+                  status:
+                    type: integer
+                    description: Status of the Product.
+                    example: 1
+                  created_at:
+                    type: string
+                    description: Date and time when the product was created.
+                  updated_at:
+                    type: string
+                    description: Date and time when the product was last updated.
+        "404":
+          description: Product not found!
+        "500":
+          description: Failed to update product.
+
+    get:
+      tags:
+          - Product
+      summary: get a Product
+      parameters:
+          - in: path
+            name: id
+            description: ID of the Profile to be get.
+            required: true
+            schema:
+                type: string
+                example: 123
+      responses:
+          "200":
+              description: Successfully show the Product
+              content:
+                  application/json:
+                      schema:
+                          type: array
+                          items:
+                              type: object
+                              properties:
+                                  id:
+                                    type: string
+                                    description: ID of the product.
+                                  sub_cat_id:
+                                    type: string
+                                    description: sub category of the product.
+                                    example: Men's t-shirt
+                                  product_code:
+                                    type: string
+                                    description: Product code of the product.
+                                    example: 45612
+                                  name:
+                                    type: string
+                                    description: name of the Product.
+                                    example: Product
+                                  description:
+                                    type: string
+                                    description: description of the Product.
+                                    example: description
+                                  price:
+                                    type: integer
+                                    description: Price of the Product.
+                                    example: 1000
+                                  discount:
+                                    type: integer
+                                    description: Discount of the Product.
+                                    example: 10
+                                  brand_id:
+                                    type: string
+                                    description: Brand id of the Product.
+                                    example: E124547e1
+                                  color_id:
+                                    type: string
+                                    description: Color id of the Product.
+                                    example: E124547e1
+                                  size_id:
+                                    type: string
+                                    description: SIze id of the Product.
+                                    example: E124547e1
+                                  status:
+                                    type: integer
+                                    description: Status of the Product.
+                                    example: 1
+                                  created_at:
+                                    type: string
+                                    description: Date and time when the product was created.
+                                  updated_at:
+                                    type: string
+                                    description: Date and time when the product was last updated.
+                                  productImages:
+                                    type: string
+          "404":
+              description: Product not fount.
+          "500":
+              description: Failed to get product.
+
+    delete:
+      tags:
+          - Product
+      summary: Delete Product
+      parameters:
+          - in: path
+            name: id
+            description: ID of the Product to be deleted.
+            required: true
+            schema:
+                type: string
+                example: 123
+      responses:
+      "200":
+          description: Product deleted successfully
+          content:
+              application/json:
+                  schema:
+                      type: array
+                      items:
+                          type: object
+                          properties:
+                              id:
+                                type: string
+                                description: ID of the product.
+                              sub_cat_id:
+                                type: string
+                                description: sub category of the product.
+                                example: Men's t-shirt
+                              product_code:
+                                type: string
+                                description: Product code of the product.
+                                example: 45612
+                              name:
+                                type: string
+                                description: name of the Product.
+                                example: Product
+                              description:
+                                type: string
+                                description: description of the Product.
+                                example: description
+                              price:
+                                type: integer
+                                description: Price of the Product.
+                                example: 1000
+                              discount:
+                                type: integer
+                                description: Discount of the Product.
+                                example: 10
+                              brand_id:
+                                type: string
+                                description: Brand id of the Product.
+                                example: E124547e1
+                              color_id:
+                                type: string
+                                description: Color id of the Product.
+                                example: E124547e1
+                              size_id:
+                                type: string
+                                description: SIze id of the Product.
+                                example: E124547e1
+                              status:
+                                type: integer
+                                description: Status of the Product.
+                                example: 1
+                              created_at:
+                                type: string
+                                description: Date and time when the product was created.
+                              updated_at:
+                                type: string
+                                description: Date and time when the product was last updated.
+                              productImages:
+                                type: string
+      "404":
+          description: Product not fount.
+      "500":
+          description: Failed to delete product.

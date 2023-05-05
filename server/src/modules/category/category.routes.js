@@ -7,8 +7,7 @@ const { categorySchema } = require("./category.schema");
 module.exports = (app) => {
     app.route("/categories")
         .get(getCategories)
-        .post(AuthStrategy, validate(categorySchema), createCategory);
-        // .post(AuthStrategy, validate(categorySchema), categoryImage.single('image'), createCategory);
+        .post(AuthStrategy, categoryImage.single('image'), createCategory);
 
     app.route("/categories/:id")
         .get(getCategroyByID)
